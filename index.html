@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EduSpark - Learning App</title>
+    <title>EduSpark - Live Learning App</title>
     <style>
         :root {
             --primary: #ec4899;
@@ -131,12 +131,11 @@
         }
 
         .flashcard-content {
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             font-weight: 600;
             padding: 20px;
         }
 
-        /* Voice Section UI */
         .voice-section {
             width: 100%;
             margin-top: 15px;
@@ -249,13 +248,20 @@
             width: 0%;
             transition: width 0.3s ease;
         }
+
+        /* Loading Spinner */
+        .loading-text {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
     </style>
 </head>
 <body>
 
     <header>
-        <h1>EduSpark</h1>
-        <p>Master your study topics instantly</p>
+        <h1>EduSpark Live</h1>
+        <p>Fresh online study questions every single run</p>
     </header>
 
     <div class="container">
@@ -271,10 +277,14 @@
         <div id="level-screen" class="setup-screen hidden">
             <h2>Select Your Level 🎯</h2>
             <div class="menu-options">
-                <button class="menu-btn" onclick="startApp('beginner')">🟢 Beginner</button>
-                <button class="menu-btn" onclick="startApp('intermediate')">🟡 Intermediate</button>
-                <button class="menu-btn" onclick="startApp('advanced')">🔴 Advanced</button>
+                <button class="menu-btn" onclick="startApp('easy')">🟢 Beginner</button>
+                <button class="menu-btn" onclick="startApp('medium')">🟡 Intermediate</button>
+                <button class="menu-btn" onclick="startApp('hard')">🔴 Advanced</button>
             </div>
+        </div>
+
+        <div id="loading-screen" class="setup-screen hidden">
+            <p class="loading-text">📡 Sourcing live questions from database...</p>
         </div>
 
         <div id="main-app" class="hidden">
@@ -315,26 +325,11 @@
     </div>
 
     <script>
-        // Structured Multi-Subject & Multi-Level Dataset
-        const masterDataset = {
-            math: [
-                { level: "beginner", question: "What is 5 + 3?", answer: "8", options: ["6", "7", "8", "9"] },
-                { level: "beginner", question: "What is 10 - 4?", answer: "6", options: ["4", "5", "6", "7"] },
-                { level: "intermediate", question: "What is 12 x 11?", answer: "132", options: ["122", "132", "142", "152"] },
-                { level: "intermediate", question: "What is 144 ÷ 12?", answer: "12", options: ["10", "11", "12", "14"] },
-                { level: "advanced", question: "What is the square root of 225?", answer: "15", options: ["13", "14", "15", "25"] }
-            ],
-            reading: [
-                { level: "beginner", question: "The cat sat on the mat.", answer: "The cat sat on the mat.", options: ["The cat sat on the mat.", "A dog ran away.", "The mat was blue.", "The cat was big."] },
-                { level: "beginner", question: "The sun is hot.", answer: "The sun is hot.", options: ["The moon is bright.", "The sun is hot.", "It is raining outside.", "The sky is cold."] },
-                { level: "intermediate", question: "The brave astronaut explored the distant planet.", answer: "The brave astronaut explored the distant planet.", options: ["The rocket crashed down.", "The brave astronaut explored the distant planet.", "Stars are beautiful tonight.", "A scientist worked late."] },
-                { level: "advanced", question: "Environmental preservation requires global cooperation.", answer: "Environmental preservation requires global cooperation.", options: ["Global cooperation is rare.", "Preservation requires local energy.", "Environmental preservation requires global cooperation.", "Governments rule the worlds."] }
-            ],
-            science: [
-                { level: "beginner", question: "What plant part absorbs water from the soil?", answer: "Roots", options: ["Leaves", "Flowers", "Roots", "Stems"] },
-                { level: "intermediate", question: "What state of matter has a definite volume but no definite shape?", answer: "Liquid", options: ["Solid", "Liquid", "Gas", "Plasma"] },
-                { level: "advanced", question: "What is the speed of light approximately?", answer: "300,000 km/s", options: ["150,000 km/s", "300,000 km/s", "1,000,000 km/s", "500,000 km/s"] }
-            ]
+        // API Configuration Mapping
+        const categories = {
+            math: 19,     // Science: Mathematics
+            reading: 10,  // Entertainment: Books
+            science: 17   // Science & Nature
         };
 
         let chosenSubject = '';
@@ -344,7 +339,6 @@
         let isFlipped = false;
         let currentMode = 'flashcards';
         
-        // Speech API tools
         let recognition;
         let isListening = false;
 
@@ -354,25 +348,61 @@
             document.getElementById('level-screen').classList.remove('hidden');
         }
 
-        function startApp(level) {
+        // Fetch dynamic questions from Open Trivia DB API
+        async function startApp(level) {
             chosenLevel = level;
-            activeDataset = masterDataset[chosenSubject].filter(item => item.level === chosenLevel);
-
-            if (activeDataset.length === 0) {
-                alert("No items found for this configuration! Resetting.");
-                location.reload();
-                return;
-            }
-
             document.getElementById('level-screen').classList.add('hidden');
-            document.getElementById('main-app').classList.remove('hidden');
-            
-            currentIndex = 0;
-            isFlipped = false;
-            updateFlashcard();
-            updateQuiz();
-            updateProgressBar();
-            setupSpeechRecognition();
+            document.getElementById('loading-screen').classList.remove('hidden');
+
+            const categoryId = categories[chosenSubject];
+            const apiUrl = `https://opentdb.com/api.php?amount=5&category=${categoryId}&difficulty=${chosenLevel}&type=multiple`;
+
+            try {
+                const response = await fetch(apiUrl);
+                const data = await response.json();
+
+                if (data.response_code === 0 && data.results.length > 0) {
+                    // Process external data format into internal app format
+                    activeDataset = data.results.map(item => {
+                        const cleanQuestion = decodeHTML(item.question);
+                        const cleanAnswer = decodeHTML(item.correct_answer);
+                        
+                        // Merge choices and safely shuffle them around randomly
+                        const choices = item.incorrect_answers.map(ans => decodeHTML(ans));
+                        choices.push(cleanAnswer);
+                        choices.sort(() => Math.random() - 0.5);
+
+                        return {
+                            question: cleanQuestion,
+                            answer: cleanAnswer,
+                            options: choices
+                        };
+                    });
+
+                    // Hide loading and reveal main application layout
+                    document.getElementById('loading-screen').classList.add('hidden');
+                    document.getElementById('main-app').classList.remove('hidden');
+                    
+                    currentIndex = 0;
+                    isFlipped = false;
+                    updateFlashcard();
+                    updateQuiz();
+                    updateProgressBar();
+                    setupSpeechRecognition();
+                } else {
+                    throw new Error("No trivia records found.");
+                }
+            } catch (error) {
+                alert("⚠️ Trouble connecting to the online live question network. Reverting back to home screen.");
+                location.reload();
+            }
+        }
+
+        // Clean up text codes like &quot; or &#039; from API strings
+        function decodeHTML(html) {
+            const txt = document.createElement("textarea");
+            txt.innerHTML = html;
+            return txt.value;
         }
 
         function switchMode(mode) {
@@ -400,7 +430,7 @@
                 currentMode === 'flashcards' ? updateFlashcard() : updateQuiz();
                 updateProgressBar();
             } else {
-                alert("🎉 Core deck completed! Returning to Main Menu.");
+                alert("🎉 Round completed! Heading back to choose a new custom layout.");
                 location.reload();
             }
         }
@@ -423,7 +453,6 @@
             cardText.style.color = isFlipped ? 'var(--primary)' : 'var(--text)';
             document.getElementById('feedback').innerText = '';
 
-            // Only show mic options if user picks reading and the card shows the question/target sentence
             if (chosenSubject === 'reading' && !isFlipped) {
                 voiceModule.classList.remove('hidden');
             } else {
@@ -436,7 +465,6 @@
             updateFlashcard();
         }
 
-        // --- SPEECH RECOGNITION & SPEAK BACK LOGIC ---
         function setupSpeechRecognition() {
             window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
             if (window.SpeechRecognition) {
@@ -457,19 +485,13 @@
                     } else {
                         feedbackDiv.innerText = `❌ Not quite! You said "${event.results[0][0].transcript}". Let me help you out.`;
                         feedbackDiv.style.color = "var(--error)";
-                        // Read out the proper pronunciation automatically
                         speakCorrectWay(activeDataset[currentIndex].question);
                     }
                     stopListeningMode();
                 };
 
-                recognition.onerror = function() {
-                    stopListeningMode();
-                };
-
-                recognition.onend = function() {
-                    stopListeningMode();
-                };
+                recognition.onerror = function() { stopListeningMode(); };
+                recognition.onend = function() { stopListeningMode(); };
             }
         }
 
@@ -503,12 +525,11 @@
             if ('speechSynthesis' in window) {
                 const utterance = new SpeechSynthesisUtterance(text);
                 utterance.lang = 'en-US';
-                utterance.rate = 0.9; // Spoken slightly slower to facilitate clear pronunciation
+                utterance.rate = 0.9;
                 window.speechSynthesis.speak(utterance);
             }
         }
 
-        // Quiz Logic
         function updateQuiz() {
             if (activeDataset.length === 0) return;
             const item = activeDataset[currentIndex];
