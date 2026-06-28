@@ -564,10 +564,7 @@
         let recognition;
         let isListening = false;
 
-        // EVENT LISTENERS: The safest way to make buttons work!
         document.addEventListener("DOMContentLoaded", () => {
-            
-            // 1. Subject Buttons
             document.querySelectorAll('.subject-btn').forEach(btn => {
                 btn.addEventListener('click', (e) => {
                     chosenSubject = e.target.getAttribute('data-subject');
@@ -576,7 +573,6 @@
                 });
             });
 
-            // 2. Grade Buttons
             document.querySelectorAll('.grade-btn').forEach(btn => {
                 btn.addEventListener('click', (e) => {
                     const grade = parseInt(e.target.getAttribute('data-grade'));
@@ -584,15 +580,12 @@
                 });
             });
 
-            // 3. Navigation & Mode Tabs
             document.getElementById('tab-flashcards').addEventListener('click', () => switchMode('flashcards'));
             document.getElementById('tab-quiz').addEventListener('click', () => switchMode('quiz'));
-            
             document.getElementById('flashcard').addEventListener('click', flipCard);
             document.getElementById('btn-prev').addEventListener('click', prevItem);
             document.getElementById('btn-next-card').addEventListener('click', nextItem);
             document.getElementById('btn-next-quiz').addEventListener('click', nextItem);
-            
             document.getElementById('mic-btn').addEventListener('click', toggleListening);
         });
 
@@ -633,7 +626,6 @@
 
         function switchMode(mode) {
             currentMode = mode;
-            
             document.getElementById('tab-flashcards').classList.remove('active');
             document.getElementById('tab-quiz').classList.remove('active');
             
@@ -680,7 +672,6 @@
             
             cardText.innerText = isFlipped ? activeDataset[currentIndex].answer : activeDataset[currentIndex].question;
             cardText.style.color = isFlipped ? 'var(--primary)' : 'var(--text)';
-            
             document.getElementById('feedback').innerText = '';
 
             if (chosenSubject === 'reading') {
@@ -706,14 +697,13 @@
                 recognition.onresult = function(event) {
                     const spokenText = event.results[0][0].transcript.toLowerCase().replace(/[^\w\s]/gi, '');
                     const currentCardText = document.getElementById('card-text').innerText.toLowerCase().replace(/[^\w\s]/gi, '');
-                    
                     const feedbackDiv = document.getElementById('feedback');
                     
                     if (spokenText.trim() === currentCardText.trim()) {
                         feedbackDiv.innerText = "✨ Perfect! You read it exactly right!";
                         feedbackDiv.style.color = "var(--success)";
                     } else {
-                        // THIS is where the computer corrects you and speaks out loud!
+                        // Error handling triggers AI voice correction
                         feedbackDiv.innerText = `🔊 Listen carefully! You said: "${event.results[0][0].transcript}".`;
                         feedbackDiv.style.color = "var(--error)";
                         speakCorrectWay(document.getElementById('card-text').innerText);
@@ -721,7 +711,20 @@
                     stopListeningMode();
                 };
 
-                recognition.onerror = function() { stopListeningMode(); };
+                // Add advanced error handling to show exactly why it fails!
+                recognition.onerror = function(event) {
+                    const feedbackDiv = document.getElementById('feedback');
+                    if (event.error === 'not-allowed' || event.error === 'service-not-allowed') {
+                        feedbackDiv.innerText = "🛑 Microphone access denied! Please allow mic permissions in your browser.";
+                    } else if (event.error === 'network') {
+                        feedbackDiv.innerText = "🛑 Network Error: Are you opening this as a local file? Use CodePen to test the microphone!";
+                    } else {
+                        feedbackDiv.innerText = `🛑 Error: ${event.error}`;
+                    }
+                    feedbackDiv.style.color = "var(--error)";
+                    stopListeningMode();
+                };
+                
                 recognition.onend = function() { stopListeningMode(); };
             }
         }
@@ -756,7 +759,7 @@
             if ('speechSynthesis' in window) {
                 const utterance = new SpeechSynthesisUtterance(text);
                 utterance.lang = 'en-US';
-                utterance.rate = 0.85; // Slightly slower so the student can hear it perfectly
+                utterance.rate = 0.85;
                 window.speechSynthesis.speak(utterance);
             }
         }
@@ -773,10 +776,7 @@
                 const button = document.createElement('button');
                 button.className = 'option-btn';
                 button.innerText = option;
-                
-                // Add event listener to dynamically created quiz buttons
                 button.addEventListener('click', () => checkAnswer(button, option, item.answer));
-                
                 optionsContainer.appendChild(button);
             });
         }
