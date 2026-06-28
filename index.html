@@ -1,4 +1,4 @@
-vv<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -169,6 +169,7 @@ vv<!DOCTYPE html>
             font-size: 1.4rem;
             font-weight: 600;
             padding: 20px;
+            pointer-events: none; /* Prevents text from blocking clicks */
         }
 
         .voice-section {
@@ -298,34 +299,34 @@ vv<!DOCTYPE html>
         <div id="subject-screen" class="setup-screen">
             <h2>Choose a Subject 📚</h2>
             <div class="menu-options">
-                <button class="menu-btn" onclick="window.selectSubject('math')">🔢 Math</button>
-                <button class="menu-btn" onclick="window.selectSubject('reading')">📖 Reading</button>
-                <button class="menu-btn" onclick="window.selectSubject('science')">🔬 Science</button>
+                <button id="btn-math" class="menu-btn">🔢 Math</button>
+                <button id="btn-reading" class="menu-btn">📖 Reading</button>
+                <button id="btn-science" class="menu-btn">🔬 Science</button>
             </div>
         </div>
 
         <div id="level-screen" class="setup-screen hidden">
             <h2>Select Your Grade 🎯</h2>
             <div class="grade-grid">
-                <button class="menu-btn" onclick="window.startApp(1)">1st</button>
-                <button class="menu-btn" onclick="window.startApp(2)">2nd</button>
-                <button class="menu-btn" onclick="window.startApp(3)">3rd</button>
-                <button class="menu-btn" onclick="window.startApp(4)">4th</button>
-                <button class="menu-btn" onclick="window.startApp(5)">5th</button>
-                <button class="menu-btn" onclick="window.startApp(6)">6th</button>
-                <button class="menu-btn" onclick="window.startApp(7)">7th</button>
-                <button class="menu-btn" onclick="window.startApp(8)">8th</button>
-                <button class="menu-btn" onclick="window.startApp(9)">9th</button>
-                <button class="menu-btn" onclick="window.startApp(10)">10th</button>
-                <button class="menu-btn" onclick="window.startApp(11)">11th</button>
-                <button class="menu-btn" onclick="window.startApp(12)">12th</button>
+                <button class="menu-btn grade-btn" data-grade="1">1st</button>
+                <button class="menu-btn grade-btn" data-grade="2">2nd</button>
+                <button class="menu-btn grade-btn" data-grade="3">3rd</button>
+                <button class="menu-btn grade-btn" data-grade="4">4th</button>
+                <button class="menu-btn grade-btn" data-grade="5">5th</button>
+                <button class="menu-btn grade-btn" data-grade="6">6th</button>
+                <button class="menu-btn grade-btn" data-grade="7">7th</button>
+                <button class="menu-btn grade-btn" data-grade="8">8th</button>
+                <button class="menu-btn grade-btn" data-grade="9">9th</button>
+                <button class="menu-btn grade-btn" data-grade="10">10th</button>
+                <button class="menu-btn grade-btn" data-grade="11">11th</button>
+                <button class="menu-btn grade-btn" data-grade="12">12th</button>
             </div>
         </div>
 
         <div id="main-app" class="hidden">
             <div class="tabs">
-                <button id="tab-flashcards" class="tab-btn active" onclick="window.switchMode('flashcards')">Flashcards</button>
-                <button id="tab-quiz" class="tab-btn" onclick="window.switchMode('quiz')">Quiz</button>
+                <button id="tab-flashcards" class="tab-btn active">Flashcards</button>
+                <button id="tab-quiz" class="tab-btn">Quiz</button>
             </div>
 
             <div class="progress-container">
@@ -338,20 +339,20 @@ vv<!DOCTYPE html>
             </div>
 
             <div id="flashcard-view" class="app-card">
-                <div class="flashcard" onclick="window.flipCard()">
+                <div id="flashcard-box" class="flashcard">
                     <div id="card-text" class="flashcard-content">Loading...</div>
                 </div>
 
                 <p style="color: var(--text-light); font-size: 0.85rem; margin-bottom: 10px;">Click card to flip</p>
 
                 <div id="reading-voice-module" class="voice-section hidden">
-                    <button id="mic-btn" class="mic-btn" onclick="window.toggleListening()">🎤 Tap & Read Flashcard</button>
+                    <button id="mic-btn" class="mic-btn">🎤 Tap & Read Flashcard</button>
                     <div id="feedback" class="feedback-text"></div>
                 </div>
 
                 <div class="controls">
-                    <button class="btn btn-secondary" onclick="window.prevItem()">Previous</button>
-                    <button class="btn btn-primary" onclick="window.nextItem()">Next Card</button>
+                    <button id="btn-prev-flashcard" class="btn btn-secondary">Previous</button>
+                    <button id="btn-next-flashcard" class="btn btn-primary">Next Card</button>
                 </div>
             </div>
 
@@ -359,7 +360,7 @@ vv<!DOCTYPE html>
                 <h3 id="quiz-question" style="font-size: 1.3rem; margin-bottom: 15px;">Loading Question...</h3>
                 <div id="quiz-options" class="quiz-options"></div>
                 <div class="controls">
-                    <button class="btn btn-primary" id="next-quiz-btn" onclick="window.nextItem()" style="display: none;">Next Question</button>
+                    <button id="btn-next-quiz" class="btn btn-primary" style="display: none;">Next Question</button>
                 </div>
             </div>
         </div>
@@ -492,4 +493,357 @@ vv<!DOCTYPE html>
                 ],
                 9: [
                     { question: "What carries genetic information in living things?", correct_answer: "DNA", incorrect_answers: ["RNA", "Proteins", "Lipids"] },
-                    { question: "What is the process of cell division that results in two identical daughter cells?", correct_answer: "
+                    { question: "What is the process of cell division that results in two identical daughter cells?", correct_answer: "Mitosis", incorrect_answers: ["Meiosis", "Osmosis", "Photosynthesis"] },
+                    { question: "Who proposed the theory of evolution by natural selection?", correct_answer: "Charles Darwin", incorrect_answers: ["Isaac Newton", "Albert Einstein", "Gregor Mendel"] },
+                    { question: "What is the primary product of cellular respiration?", correct_answer: "ATP (Energy)", incorrect_answers: ["Glucose", "Oxygen", "Light"] }
+                ],
+                10: [
+                    { question: "What type of bond involves sharing electrons?", correct_answer: "Covalent bond", incorrect_answers: ["Ionic bond", "Metallic bond", "Hydrogen bond"] },
+                    { question: "What is the pH of pure water?", correct_answer: "7", incorrect_answers: ["0", "14", "5"] },
+                    { question: "Avogadro's number is approximately?", correct_answer: "6.022 x 10^23", incorrect_answers: ["3.14 x 10^15", "2.99 x 10^8", "9.81 x 10^5"] },
+                    { question: "What gas law relates pressure and volume?", correct_answer: "Boyle's Law", incorrect_answers: ["Charles's Law", "Ideal Gas Law", "Dalton's Law"] }
+                ],
+                11: [
+                    { question: "What is the atomic number of Hydrogen?", correct_answer: "1", incorrect_answers: ["2", "10", "14"] },
+                    { question: "What is the formula for Force?", correct_answer: "F = ma", incorrect_answers: ["F = mv", "F = mc^2", "F = mgh"] },
+                    { question: "What unit is used to measure electrical current?", correct_answer: "Amperes (Amps)", incorrect_answers: ["Volts", "Ohms", "Watts"] },
+                    { question: "Energy of motion is called?", correct_answer: "Kinetic Energy", incorrect_answers: ["Potential Energy", "Thermal Energy", "Static Energy"] }
+                ],
+                12: [
+                    { question: "What is the speed of light in a vacuum?", correct_answer: "300,000 km/s", incorrect_answers: ["150,000 km/s", "1,000 km/s", "3,000,000 km/s"] },
+                    { question: "In organic chemistry, what element must a molecule contain to be considered 'organic'?", correct_answer: "Carbon", incorrect_answers: ["Oxygen", "Nitrogen", "Hydrogen"] },
+                    { question: "Which part of the brain controls balance and coordination?", correct_answer: "Cerebellum", incorrect_answers: ["Cerebrum", "Brain stem", "Frontal lobe"] },
+                    { question: "What particle carries the electromagnetic force?", correct_answer: "Photon", incorrect_answers: ["Electron", "Proton", "Neutron"] }
+                ]
+            },
+            
+            reading: {
+                1: [
+                    { passage: "The cat is orange. The cat sits on the mat. The mat is blue. The cat likes to sleep.", question: "What color is the cat?", correct_answer: "Orange", incorrect_answers: ["Blue", "Black", "White"] },
+                    { passage: "Ben has a big red ball. He plays with it in the yard. His dog Buster barks at the ball.", question: "What does Ben have?", correct_answer: "A big red ball", incorrect_answers: ["A small blue ball", "A kite", "A toy car"] },
+                    { passage: "Sam loves to run fast. He runs in the park. He wears green shoes when he runs.", question: "What does Sam love to do?", correct_answer: "Run fast", incorrect_answers: ["Sleep", "Read books", "Eat candy"] },
+                    { passage: "The tiny frog is green. It jumps on a lily pad in the pond. The water is cool.", question: "What color is the frog?", correct_answer: "Green", incorrect_answers: ["Red", "Yellow", "Brown"] }
+                ],
+                2: [
+                    { passage: "Tim has a red bicycle. He rides it to the park every day. His friend Sarah has a blue scooter.", question: "What does Tim ride to the park?", correct_answer: "A red bicycle", incorrect_answers: ["A blue scooter", "A skateboard", "A car"] },
+                    { passage: "Lily loves baking cookies with her grandma. They mix flour, sugar, and butter in a large bowl.", question: "What is Lily baking?", correct_answer: "Cookies", incorrect_answers: ["Cake", "Bread", "Pie"] },
+                    { passage: "Max is a golden retriever. He loves to catch frisbees in the air and swim in the lake on hot days.", question: "What kind of dog is Max?", correct_answer: "Golden Retriever", incorrect_answers: ["Poodle", "Bulldog", "Pug"] },
+                    { passage: "Anna went to the zoo. She saw tall giraffes eating leaves from the tops of the trees.", question: "What were the giraffes eating?", correct_answer: "Leaves", incorrect_answers: ["Apples", "Grass", "Bugs"] }
+                ],
+                3: [
+                    { passage: "Bees are very important insects. They fly from flower to flower to collect sweet nectar.", question: "What do bees collect from flowers?", correct_answer: "Nectar", incorrect_answers: ["Honey", "Water", "Leaves"] },
+                    { passage: "Dinosaurs lived on Earth millions of years ago, long before there were any people.", question: "When did dinosaurs live?", correct_answer: "Millions of years ago", incorrect_answers: ["A few days ago", "In the year 1800", "They are alive today"] },
+                    { passage: "The water cycle is a continuous process. Heat from the sun causes water in oceans to evaporate.", question: "What causes water to evaporate?", correct_answer: "Heat from the sun", incorrect_answers: ["Wind blowing", "Fish swimming", "The moon's gravity"] },
+                    { passage: "Some birds fly south for the winter. This is called migration. It helps them find warm weather and food.", question: "Why do birds migrate?", correct_answer: "To find warm weather and food", incorrect_answers: ["To play in the snow", "To hide from bears", "To sleep all day"] }
+                ],
+                4: [
+                    { passage: "The solar system has eight planets. The closest planet to the sun is Mercury, but Venus is the hottest.", question: "Which planet is the hottest?", correct_answer: "Venus", incorrect_answers: ["Mercury", "Earth", "Mars"] },
+                    { passage: "Thomas Edison was a famous inventor. He created the first practical and long-lasting electric lightbulb in 1879.", question: "What did Edison create in 1879?", correct_answer: "A practical lightbulb", incorrect_answers: ["The telephone", "The airplane", "The computer"] },
+                    { passage: "Hummingbirds are tiny birds that can flap their wings up to 80 times per second, allowing them to hover in mid-air.", question: "What allows hummingbirds to hover?", correct_answer: "Flapping their wings very fast", incorrect_answers: ["Having big feet", "Eating lots of seeds", "Flying very high"] },
+                    { passage: "The Great Wall of China is the longest wall in the world. It was built over many centuries to protect against invaders.", question: "Why was the Great Wall built?", correct_answer: "To protect against invaders", incorrect_answers: ["To be a giant road", "To mark a river", "To look pretty"] }
+                ],
+                5: [
+                    { passage: "Photosynthesis is the process plants use to make food. They turn sunlight, water, and carbon dioxide into glucose.", question: "What do plants turn into glucose?", correct_answer: "Sunlight, water, and carbon dioxide", incorrect_answers: ["Dirt and rocks", "Bugs and rain", "Wind and shade"] },
+                    { passage: "The American Revolution was a historic conflict where the original 13 colonies declared independence from Great Britain.", question: "From whom did the colonies declare independence?", correct_answer: "Great Britain", incorrect_answers: ["France", "Spain", "Canada"] },
+                    { passage: "A chameleon is a lizard known for its ability to change color. This helps it communicate and regulate its body temperature.", question: "Why do chameleons change color?", correct_answer: "To communicate and regulate temperature", incorrect_answers: ["To scare birds away", "Because they eat colorful bugs", "To sleep better"] },
+                    { passage: "Fossils are the preserved remains of ancient plants and animals. They give scientists clues about how life looked millions of years ago.", question: "What do fossils tell scientists?", correct_answer: "Clues about ancient life", incorrect_answers: ["How to build rockets", "What the weather is today", "How to cook food"] }
+                ],
+                6: [
+                    { passage: "Earthquakes occur when huge masses of rock below the Earth's surface, called tectonic plates, suddenly slip past one another.", question: "What are the huge masses of rock called?", correct_answer: "Tectonic plates", incorrect_answers: ["Volcanoes", "Ocean currents", "Mountains"] },
+                    { passage: "During the Renaissance, art and science flourished in Europe. Famous artists like Leonardo da Vinci created masterpieces that are still admired today.", question: "What flourished during the Renaissance?", correct_answer: "Art and science", incorrect_answers: ["War and famine", "Farming only", "Sports and games"] },
+                    { passage: "Gravity is an invisible force that pulls objects toward each other. Earth's gravity is what keeps you on the ground and causes objects to fall.", question: "What keeps you on the ground?", correct_answer: "Earth's gravity", incorrect_answers: ["Magnetism", "Wind pressure", "Friction"] },
+                    { passage: "The human skeleton is made up of 206 bones. These bones provide structure, protect organs, and anchor muscles so we can move.", question: "How many bones are in the human skeleton?", correct_answer: "206", incorrect_answers: ["100", "500", "50"] }
+                ],
+                7: [
+                    { passage: "Ancient Egypt was located along the Nile River in North Africa. The river flooded every year, leaving behind nutrient-rich soil.", question: "Why was the Nile River important to ancient Egyptians?", correct_answer: "It provided rich soil for farming", incorrect_answers: ["It was used to build pyramids", "It stopped invaders", "It was filled with gold"] },
+                    { passage: "In biology, symbiosis refers to a close and long-term biological interaction between two different biological organisms.", question: "What is symbiosis?", correct_answer: "A close interaction between two organisms", incorrect_answers: ["When animals fight", "A type of plant disease", "How rocks are formed"] },
+                    { passage: "The Silk Road was an ancient network of trade routes that connected the East and West. It was central to cultural interaction for centuries.", question: "What was the Silk Road?", correct_answer: "A network of trade routes", incorrect_answers: ["A road made of literal silk", "A famous wall in China", "A river in Europe"] },
+                    { passage: "A food web shows how energy is transferred in an ecosystem. It is much more complex than a simple food chain.", question: "What does a food web show?", correct_answer: "How energy is transferred", incorrect_answers: ["How to cook food", "Where animals sleep", "How fast animals run"] }
+                ],
+                8: [
+                    { passage: "The Industrial Revolution transitioned societies from manual labor to machine-based manufacturing, starting in Great Britain in the 18th century.", question: "Where did the Industrial Revolution begin?", correct_answer: "Great Britain", incorrect_answers: ["United States", "France", "Germany"] },
+                    { passage: "The Constitution of the United States was written in 1787 to replace the Articles of Confederation, which had proven too weak to unite the country.", question: "Why was the Constitution written?", correct_answer: "To replace the weak Articles of Confederation", incorrect_answers: ["To declare independence from Britain", "To end the Civil War", "To create a monarchy"] },
+                    { passage: "Natural selection is a mechanism of evolution. Organisms that are more adapted to their environment are more likely to survive and pass on their genes.", question: "What makes an organism more likely to survive?", correct_answer: "Being adapted to its environment", incorrect_answers: ["Being the largest", "Eating the most food", "Moving to a new habitat"] },
+                    { passage: "The water cycle involves evaporation, condensation, and precipitation. It describes the continuous movement of water on, above, and below the surface of the Earth.", question: "What are the three main parts of the water cycle?", correct_answer: "Evaporation, condensation, and precipitation", incorrect_answers: ["Freezing, melting, boiling", "Rain, snow, hail", "Oceans, lakes, rivers"] }
+                ],
+                9: [
+                    { passage: "In literature, the theme is the underlying message or central idea that the author wants to convey, different from the plot, which is the sequence of events.", question: "How does a theme differ from a plot?", correct_answer: "The theme is the message; the plot is the events", incorrect_answers: ["The plot is the message; the theme is the characters", "They are exactly the same thing", "The theme is the setting of the story"] },
+                    { passage: "During the Cold War, the United States and the Soviet Union engaged in a tense geopolitical rivalry that never escalated into direct military conflict.", question: "Why was it called the 'Cold War'?", correct_answer: "There was no direct military conflict", incorrect_answers: ["It was fought entirely in winter", "It took place in the Arctic", "They stopped speaking to each other completely"] },
+                    { passage: "A catalyst is a substance that increases the rate of a chemical reaction without itself undergoing any permanent chemical change.", question: "What does a catalyst do?", correct_answer: "Increases the rate of a chemical reaction", incorrect_answers: ["Stops a chemical reaction", "Changes its own chemical structure permanently", "Makes chemicals explode"] },
+                    { passage: "The protagonist is the main character in a story, often facing a conflict or challenge that drives the narrative forward.", question: "Who is the protagonist?", correct_answer: "The main character", incorrect_answers: ["The villain", "The author", "The setting"] }
+                ],
+                10: [
+                    { passage: "An ecosystem consists of all the living organisms interacting with their physical environment, maintaining balance through energy flows and nutrient cycles.", question: "What maintains the balance within an ecosystem?", correct_answer: "Energy flows and nutrient cycles", incorrect_answers: ["Only the living organisms", "Only the physical environment", "Human intervention"] },
+                    { passage: "William Shakespeare wrote highly influential plays in the late 16th and early 17th centuries, categorized mainly into tragedies, comedies, and histories.", question: "Into what three main categories are Shakespeare's plays divided?", correct_answer: "Tragedies, comedies, and histories", incorrect_answers: ["Romances, horrors, and sci-fi", "Sonnets, poems, and prose", "Musicals, dramas, and thrillers"] },
+                    { passage: "Mitosis is a part of the cell cycle in which replicated chromosomes are separated into two new nuclei. Cell division gives rise to genetically identical cells.", question: "What is the result of mitosis?", correct_answer: "Genetically identical cells", incorrect_answers: ["Completely different cells", "Only half a cell", "Dead cells"] },
+                    { passage: "A thesis statement usually appears at the end of the introductory paragraph of a paper, offering a concise summary of the main point or claim.", question: "Where does a thesis statement usually appear?", correct_answer: "At the end of the introductory paragraph", incorrect_answers: ["In the very last sentence of the essay", "In the title only", "In the middle of the body paragraphs"] }
+                ],
+                11: [
+                    { passage: "The United States Constitution divides authority into three branches through a system of checks and balances: the Legislative, Executive, and Judicial branches.", question: "Which branch of government is responsible for enforcing laws?", correct_answer: "Executive", incorrect_answers: ["Legislative", "Judicial", "Constitutional"] },
+                    { passage: "Macroeconomics is a branch of economics that studies how an overall economy behaves, analyzing phenomena such as inflation and gross domestic product.", question: "What does macroeconomics primarily focus on?", correct_answer: "The behavior of the overall economy", incorrect_answers: ["Individual consumer choices", "How a single business prices its products", "Local market competition"] },
+                    { passage: "The greenhouse effect is a process that occurs when gases in Earth's atmosphere trap the Sun's heat. This process makes Earth much warmer than it would be without an atmosphere.", question: "What happens during the greenhouse effect?", correct_answer: "Gases trap the Sun's heat", incorrect_answers: ["The atmosphere freezes", "The sun gets colder", "Plants turn into glass"] },
+                    { passage: "In rhetoric, 'ethos' represents credibility, or an ethical appeal, which involves persuasion by the character involved.", question: "What does 'ethos' represent in rhetoric?", correct_answer: "Credibility or ethical appeal", incorrect_answers: ["Emotional appeal", "Logical facts", "A physical attack"] }
+                ],
+                12: [
+                    { passage: "Quantum mechanics dictates that energy, momentum, and other quantities are restricted to discrete, distinct values, unlike classical physics which allows continuous values.", question: "What is a key difference between classical physics and quantum mechanics?", correct_answer: "Quantum mechanics restricts energy to discrete values", incorrect_answers: ["Classical physics only applies to atoms", "Quantum mechanics deals with massive planets", "Classical physics is newer"] },
+                    { passage: "Existentialism is a 20th-century philosophical movement centered on the belief that humans are fundamentally free and responsible for their own actions in a universe lacking inherent meaning.", question: "What is the central belief of existentialism regarding human responsibility?", correct_answer: "Humans are fundamentally free and responsible for their own actions", incorrect_answers: ["Society is responsible for individual actions", "Responsibility is an illusion", "Actions don't matter because the universe lacks meaning"] },
+                    { passage: "The theory of relativity, developed by Albert Einstein, transformed theoretical physics and astronomy, fundamentally altering the concepts of space, time, and gravity.", question: "What concepts did the theory of relativity fundamentally alter?", correct_answer: "Space, time, and gravity", incorrect_answers: ["Chemistry and biology", "Ocean currents", "Human psychology"] },
+                    { passage: "In literature, 'stream of consciousness' is a narrative mode or method that attempts to depict the multitudinous thoughts and feelings which pass through the mind of a narrator.", question: "What does 'stream of consciousness' attempt to depict?", correct_answer: "Thoughts and feelings passing through a mind", incorrect_answers: ["A literal river", "A strict timeline of historical events", "A dialogue between two characters"] }
+                ]
+            }
+        };
+
+        let chosenSubject = '';
+        let activeDataset = [];
+        let currentIndex = 0;
+        let isFlipped = false;
+        let currentMode = 'flashcards';
+        let recognition;
+        let isListening = false;
+
+        // BINDING TO EVENT LISTENERS (Not Inline HTML) to bypass all security blockers
+        document.addEventListener('DOMContentLoaded', () => {
+            // Subject Buttons
+            document.getElementById('btn-math').addEventListener('click', () => selectSubject('math'));
+            document.getElementById('btn-reading').addEventListener('click', () => selectSubject('reading'));
+            document.getElementById('btn-science').addEventListener('click', () => selectSubject('science'));
+
+            // Grade Buttons
+            document.querySelectorAll('.grade-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => startApp(parseInt(e.target.getAttribute('data-grade'))));
+            });
+
+            // Tabs
+            document.getElementById('tab-flashcards').addEventListener('click', () => switchMode('flashcards'));
+            document.getElementById('tab-quiz').addEventListener('click', () => switchMode('quiz'));
+
+            // Flashcard Interaction
+            document.getElementById('flashcard-box').addEventListener('click', flipCard);
+            document.getElementById('mic-btn').addEventListener('click', toggleListening);
+
+            // Controls
+            document.getElementById('btn-prev-flashcard').addEventListener('click', prevItem);
+            document.getElementById('btn-next-flashcard').addEventListener('click', nextItem);
+            document.getElementById('btn-next-quiz').addEventListener('click', nextItem);
+        });
+
+        function selectSubject(subject) {
+            chosenSubject = subject;
+            document.getElementById('subject-screen').classList.add('hidden');
+            document.getElementById('level-screen').classList.remove('hidden');
+        }
+
+        function startApp(grade) {
+            document.getElementById('level-screen').classList.add('hidden');
+            
+            activeDataset = [];
+            const rawQuestions = curriculumDatabase[chosenSubject][grade];
+            
+            rawQuestions.forEach(q => {
+                const choices = [...q.incorrect_answers];
+                choices.push(q.correct_answer);
+                choices.sort(() => Math.random() - 0.5);
+                
+                activeDataset.push({
+                    passage: q.passage, 
+                    question: q.question,
+                    answer: q.correct_answer,
+                    options: choices
+                });
+            });
+            
+            activeDataset.sort(() => Math.random() - 0.5);
+            
+            if (chosenSubject === 'reading') {
+                document.getElementById('reading-passage').classList.remove('hidden');
+            } else {
+                document.getElementById('reading-passage').classList.add('hidden');
+            }
+
+            document.getElementById('main-app').classList.remove('hidden');
+            currentIndex = 0;
+            isFlipped = false;
+            setupSpeechRecognition(); 
+            updateFlashcard();
+            updateQuiz();
+            updateProgressBar();
+        }
+
+        function switchMode(mode) {
+            currentMode = mode;
+            
+            document.getElementById('tab-flashcards').classList.remove('active');
+            document.getElementById('tab-quiz').classList.remove('active');
+            
+            if (mode === 'flashcards') {
+                document.getElementById('tab-flashcards').classList.add('active');
+                document.getElementById('flashcard-view').classList.remove('hidden');
+                document.getElementById('quiz-view').classList.add('hidden');
+                isFlipped = false;
+                updateFlashcard();
+            } else {
+                document.getElementById('tab-quiz').classList.add('active');
+                document.getElementById('flashcard-view').classList.add('hidden');
+                document.getElementById('quiz-view').classList.remove('hidden');
+                updateQuiz();
+            }
+            updateProgressBar();
+        }
+
+        function nextItem() {
+            if (currentIndex < activeDataset.length - 1) {
+                currentIndex++;
+                isFlipped = false;
+                currentMode === 'flashcards' ? updateFlashcard() : updateQuiz();
+                updateProgressBar();
+            } else {
+                alert("🎉 You finished this grade's curriculum! Heading back to the main menu.");
+                location.reload();
+            }
+        }
+
+        function prevItem() {
+            if (currentIndex > 0) {
+                currentIndex--;
+                isFlipped = false;
+                updateFlashcard();
+                updateProgressBar();
+            }
+        }
+
+        function updateFlashcard() {
+            if (activeDataset.length === 0) return;
+            const item = activeDataset[currentIndex];
+            const cardText = document.getElementById('card-text');
+            const voiceModule = document.getElementById('reading-voice-module');
+            
+            if (chosenSubject === 'reading') {
+                document.getElementById('passage-text').innerText = item.passage;
+                voiceModule.classList.remove('hidden');
+            } else {
+                voiceModule.classList.add('hidden');
+            }
+
+            cardText.innerText = isFlipped ? item.answer : item.question;
+            cardText.style.color = isFlipped ? 'var(--primary)' : 'var(--text)';
+            document.getElementById('feedback').innerText = '';
+        }
+
+        function flipCard() {
+            isFlipped = !isFlipped;
+            updateFlashcard();
+        }
+
+        function setupSpeechRecognition() {
+            window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            if (window.SpeechRecognition) {
+                recognition = new SpeechRecognition();
+                recognition.continuous = false;
+                recognition.lang = 'en-US';
+                recognition.interimResults = false;
+
+                recognition.onresult = function(event) {
+                    const spokenText = event.results[0][0].transcript.toLowerCase().replace(/[^\w\s]/gi, '');
+                    const currentCardText = document.getElementById('card-text').innerText.toLowerCase().replace(/[^\w\s]/gi, '');
+                    
+                    const feedbackDiv = document.getElementById('feedback');
+                    
+                    if (spokenText.trim() === currentCardText.trim()) {
+                        feedbackDiv.innerText = "✨ Perfect! You read it exactly right!";
+                        feedbackDiv.style.color = "var(--success)";
+                    } else {
+                        feedbackDiv.innerText = `❌ Not quite! You said: "${event.results[0][0].transcript}". Let me help you out.`;
+                        feedbackDiv.style.color = "var(--error)";
+                        speakCorrectWay(document.getElementById('card-text').innerText);
+                    }
+                    stopListeningMode();
+                };
+
+                recognition.onerror = function() { stopListeningMode(); };
+                recognition.onend = function() { stopListeningMode(); };
+            }
+        }
+
+        function toggleListening() {
+            if (!recognition) {
+                alert("Speech recognition isn't supported on this browser. Try opening the app in Google Chrome or Safari!");
+                return;
+            }
+            if (isListening) {
+                recognition.stop();
+                stopListeningMode();
+            } else {
+                isListening = true;
+                const btn = document.getElementById('mic-btn');
+                btn.innerText = "🎙️ Listening... Read the flashcard aloud!";
+                btn.classList.add('recording');
+                recognition.start();
+            }
+        }
+
+        function stopListeningMode() {
+            isListening = false;
+            const btn = document.getElementById('mic-btn');
+            if(btn) {
+                btn.innerText = "🎤 Tap & Read Flashcard";
+                btn.classList.remove('recording');
+            }
+        }
+
+        function speakCorrectWay(text) {
+            if ('speechSynthesis' in window) {
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'en-US';
+                utterance.rate = 0.9;
+                window.speechSynthesis.speak(utterance);
+            }
+        }
+
+        function updateQuiz() {
+            if (activeDataset.length === 0) return;
+            const item = activeDataset[currentIndex];
+            
+            if (chosenSubject === 'reading') {
+                document.getElementById('passage-text').innerText = item.passage;
+            }
+            
+            document.getElementById('quiz-question').innerText = item.question;
+            const optionsContainer = document.getElementById('quiz-options');
+            optionsContainer.innerHTML = '';
+            document.getElementById('next-quiz-btn').style.display = 'none';
+
+            item.options.forEach(option => {
+                const button = document.createElement('button');
+                button.className = 'option-btn';
+                button.innerText = option;
+                button.onclick = () => checkAnswer(button, option, item.answer);
+                optionsContainer.appendChild(button);
+            });
+        }
+
+        function checkAnswer(selectedButton, selectedOption, correctOption) {
+            const buttons = document.querySelectorAll('.option-btn');
+            buttons.forEach(btn => {
+                btn.disabled = true;
+                if (btn.innerText === correctOption) {
+                    btn.style.background = '#d1fae5';
+                    btn.style.borderColor = '#10b981';
+                }
+            });
+
+            if (selectedOption !== correctOption) {
+                selectedButton.style.background = '#fee2e2';
+                selectedButton.style.borderColor = '#ef4444';
+            }
+
+            document.getElementById('next-quiz-btn').style.display = 'block';
+        }
+
+        function updateProgressBar() {
+            if (activeDataset.length === 0) return;
+            const percentage = ((currentIndex + 1) / activeDataset.length) * 100;
+            document.getElementById('progress').style.width = `${percentage}%`;
+        }
+    </script>
+</body>
+</html>
