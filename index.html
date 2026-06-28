@@ -62,7 +62,6 @@
             margin-top: 25px;
         }
 
-        /* Grade Grid specifically */
         .grade-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -117,6 +116,28 @@
             color: white;
         }
 
+        /* Reading Passage Box */
+        .passage-box {
+            background: #fff1f2;
+            border-left: 5px solid var(--primary);
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 0 8px 8px 0;
+            font-size: 1.1rem;
+            line-height: 1.7;
+            text-align: left;
+            color: var(--text);
+        }
+
+        .passage-title {
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+
         .app-card {
             background: var(--card-bg);
             padding: 30px;
@@ -148,47 +169,6 @@
             font-size: 1.4rem;
             font-weight: 600;
             padding: 20px;
-        }
-
-        .voice-section {
-            width: 100%;
-            margin-top: 15px;
-            padding: 15px;
-            background: #fff1f2;
-            border-radius: 10px;
-            border: 1px dashed var(--primary);
-        }
-
-        .mic-btn {
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 50px;
-            font-weight: bold;
-            cursor: pointer;
-            margin-bottom: 10px;
-            width: 100%;
-        }
-
-        .mic-btn:hover {
-            background: var(--primary-hover);
-        }
-
-        .mic-btn.recording {
-            background: var(--error);
-            animation: pulse 1.5s infinite;
-        }
-
-        @keyframes pulse {
-            0% { opacity: 1; }
-            50% { opacity: 0.5; }
-            100% { opacity: 1; }
-        }
-
-        .feedback-text {
-            font-weight: 600;
-            margin-top: 8px;
         }
 
         .quiz-options {
@@ -307,7 +287,7 @@
         </div>
 
         <div id="loading-screen" class="setup-screen hidden">
-            <p class="loading-text">📡 Sourcing live questions from database...</p>
+            <p class="loading-text">📡 Setting up your lesson...</p>
         </div>
 
         <div id="main-app" class="hidden">
@@ -320,14 +300,14 @@
                 <div id="progress" class="progress-bar"></div>
             </div>
 
+            <div id="reading-passage" class="passage-box hidden">
+                <div class="passage-title">📖 Reading Passage</div>
+                <div id="passage-text"></div>
+            </div>
+
             <div id="flashcard-view" class="app-card">
                 <div class="flashcard" onclick="flipCard()">
                     <div id="card-text" class="flashcard-content">Loading...</div>
-                </div>
-                
-                <div id="reading-voice-module" class="voice-section hidden">
-                    <button id="mic-btn" class="mic-btn" onclick="toggleListening()">🎤 Tap & Say the Text</button>
-                    <div id="feedback" class="feedback-text"></div>
                 </div>
 
                 <p style="color: var(--text-light); font-size: 0.85rem; margin-top: 10px;">Click card to flip</p>
@@ -348,256 +328,33 @@
     </div>
 
     <script>
-        // API Configuration Mapping
+        // API Configuration Mapping for Math and Science
         const categories = {
-            math: 19,     // Science: Mathematics
-            reading: 10,  // Entertainment: Books
-            science: 17   // Science & Nature
+            math: 19,     
+            science: 17   
         };
 
-        let chosenSubject = '';
-        let chosenDifficulty = '';
-        let activeDataset = [];
-        let currentIndex = 0;
-        let isFlipped = false;
-        let currentMode = 'flashcards';
-        
-        let recognition;
-        let isListening = false;
-
-        function selectSubject(subject) {
-            chosenSubject = subject;
-            document.getElementById('subject-screen').classList.add('hidden');
-            document.getElementById('level-screen').classList.remove('hidden');
-        }
-
-        // Fetch dynamic questions from Open Trivia DB API based on specific Grade
-        async function startApp(grade) {
-            // Map the specific 1-12 grade to the closest API difficulty
-            if (grade <= 5) {
-                chosenDifficulty = 'easy';
-            } else if (grade <= 8) {
-                chosenDifficulty = 'medium';
-            } else {
-                chosenDifficulty = 'hard';
-            }
-
-            document.getElementById('level-screen').classList.add('hidden');
-            document.getElementById('loading-screen').classList.remove('hidden');
-
-            const categoryId = categories[chosenSubject];
-            const apiUrl = `https://opentdb.com/api.php?amount=5&category=${categoryId}&difficulty=${chosenDifficulty}&type=multiple`;
-
-            try {
-                const response = await fetch(apiUrl);
-                const data = await response.json();
-
-                if (data.response_code === 0 && data.results.length > 0) {
-                    activeDataset = data.results.map(item => {
-                        const cleanQuestion = decodeHTML(item.question);
-                        const cleanAnswer = decodeHTML(item.correct_answer);
-                        
-                        const choices = item.incorrect_answers.map(ans => decodeHTML(ans));
-                        choices.push(cleanAnswer);
-                        choices.sort(() => Math.random() - 0.5);
-
-                        return {
-                            question: cleanQuestion,
-                            answer: cleanAnswer,
-                            options: choices
-                        };
-                    });
-
-                    document.getElementById('loading-screen').classList.add('hidden');
-                    document.getElementById('main-app').classList.remove('hidden');
-                    
-                    currentIndex = 0;
-                    isFlipped = false;
-                    updateFlashcard();
-                    updateQuiz();
-                    updateProgressBar();
-                    setupSpeechRecognition();
-                } else {
-                    throw new Error("No trivia records found.");
+        // Custom Reading Comprehension Database
+        const readingDatabase = {
+            easy: [
+                {
+                    passage: "Sam has a small dog named Pip. Pip is brown with big white spots. Every morning, Sam and Pip walk to the park. Pip loves to chase red balls and run in the tall green grass.",
+                    questions: [
+                        { question: "What color is Pip?", correct_answer: "Brown with white spots", incorrect_answers: ["All black", "Golden yellow", "White with black spots"] },
+                        { question: "Where do Sam and Pip go in the morning?", correct_answer: "The park", incorrect_answers: ["The beach", "The store", "The school"] },
+                        { question: "What does Pip love to chase?", correct_answer: "Red balls", incorrect_answers: ["Cats", "Cars", "Blue frisbees"] }
+                    ]
                 }
-            } catch (error) {
-                alert("⚠️ Trouble connecting to the online live question network. Let's try again!");
-                location.reload();
-            }
-        }
-
-        // Clean up text codes like &quot; from API strings
-        function decodeHTML(html) {
-            const txt = document.createElement("textarea");
-            txt.innerHTML = html;
-            return txt.value;
-        }
-
-        function switchMode(mode) {
-            currentMode = mode;
-            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
-
-            if (mode === 'flashcards') {
-                document.getElementById('flashcard-view').classList.remove('hidden');
-                document.getElementById('quiz-view').classList.add('hidden');
-                isFlipped = false;
-                updateFlashcard();
-            } else {
-                document.getElementById('flashcard-view').classList.add('hidden');
-                document.getElementById('quiz-view').classList.remove('hidden');
-                updateQuiz();
-            }
-            updateProgressBar();
-        }
-
-        function nextItem() {
-            if (currentIndex < activeDataset.length - 1) {
-                currentIndex++;
-                isFlipped = false;
-                currentMode === 'flashcards' ? updateFlashcard() : updateQuiz();
-                updateProgressBar();
-            } else {
-                alert("🎉 Round completed! Heading back to choose a new subject or grade.");
-                location.reload();
-            }
-        }
-
-        function prevItem() {
-            if (currentIndex > 0) {
-                currentIndex--;
-                isFlipped = false;
-                updateFlashcard();
-                updateProgressBar();
-            }
-        }
-
-        function updateFlashcard() {
-            if (activeDataset.length === 0) return;
-            const cardText = document.getElementById('card-text');
-            const voiceModule = document.getElementById('reading-voice-module');
-            
-            cardText.innerText = isFlipped ? activeDataset[currentIndex].answer : activeDataset[currentIndex].question;
-            cardText.style.color = isFlipped ? 'var(--primary)' : 'var(--text)';
-            document.getElementById('feedback').innerText = '';
-
-            if (chosenSubject === 'reading' && !isFlipped) {
-                voiceModule.classList.remove('hidden');
-            } else {
-                voiceModule.classList.add('hidden');
-            }
-        }
-
-        function flipCard() {
-            isFlipped = !isFlipped;
-            updateFlashcard();
-        }
-
-        function setupSpeechRecognition() {
-            window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-            if (window.SpeechRecognition) {
-                recognition = new SpeechRecognition();
-                recognition.continuous = false;
-                recognition.lang = 'en-US';
-                recognition.interimResults = false;
-
-                recognition.onresult = function(event) {
-                    const spokenText = event.results[0][0].transcript.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()"]/g,"");
-                    const targetText = activeDataset[currentIndex].question.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()"]/g,"");
-                    
-                    const feedbackDiv = document.getElementById('feedback');
-                    
-                    if (spokenText.trim() === targetText.trim()) {
-                        feedbackDiv.innerText = "✨ Perfect! You read it correctly!";
-                        feedbackDiv.style.color = "var(--success)";
-                    } else {
-                        feedbackDiv.innerText = `❌ Not quite! You said "${event.results[0][0].transcript}". Let me help you out.`;
-                        feedbackDiv.style.color = "var(--error)";
-                        speakCorrectWay(activeDataset[currentIndex].question);
-                    }
-                    stopListeningMode();
-                };
-
-                recognition.onerror = function() { stopListeningMode(); };
-                recognition.onend = function() { stopListeningMode(); };
-            }
-        }
-
-        function toggleListening() {
-            if (!recognition) {
-                alert("Speech recognition isn't supported on this browser. Try Chrome or Safari.");
-                return;
-            }
-            if (isListening) {
-                recognition.stop();
-                stopListeningMode();
-            } else {
-                isListening = true;
-                const btn = document.getElementById('mic-btn');
-                btn.innerText = "🎙️ Listening... Speak Now";
-                btn.classList.add('recording');
-                recognition.start();
-            }
-        }
-
-        function stopListeningMode() {
-            isListening = false;
-            const btn = document.getElementById('mic-btn');
-            if(btn) {
-                btn.innerText = "🎤 Tap & Say the Text";
-                btn.classList.remove('recording');
-            }
-        }
-
-        function speakCorrectWay(text) {
-            if ('speechSynthesis' in window) {
-                const utterance = new SpeechSynthesisUtterance(text);
-                utterance.lang = 'en-US';
-                utterance.rate = 0.9;
-                window.speechSynthesis.speak(utterance);
-            }
-        }
-
-        function updateQuiz() {
-            if (activeDataset.length === 0) return;
-            const item = activeDataset[currentIndex];
-            document.getElementById('quiz-question').innerText = item.question;
-            const optionsContainer = document.getElementById('quiz-options');
-            optionsContainer.innerHTML = '';
-            document.getElementById('next-quiz-btn').style.display = 'none';
-
-            item.options.forEach(option => {
-                const button = document.createElement('button');
-                button.className = 'option-btn';
-                button.innerText = option;
-                button.onclick = () => checkAnswer(button, option, item.answer);
-                optionsContainer.appendChild(button);
-            });
-        }
-
-        function checkAnswer(selectedButton, selectedOption, correctOption) {
-            const buttons = document.querySelectorAll('.option-btn');
-            buttons.forEach(btn => {
-                btn.disabled = true;
-                if (btn.innerText === correctOption) {
-                    btn.style.background = '#d1fae5';
-                    btn.style.borderColor = '#10b981';
+            ],
+            medium: [
+                {
+                    passage: "The water cycle describes how water moves around the Earth. The sun heats up water in oceans and lakes, turning it into vapor. This is called evaporation. As the vapor rises, it cools and forms clouds, which is called condensation. Finally, the water falls back to Earth as rain or snow, known as precipitation.",
+                    questions: [
+                        { question: "What causes water to evaporate?", correct_answer: "Heat from the sun", incorrect_answers: ["Wind", "Cold air", "Ocean currents"] },
+                        { question: "What is it called when water vapor cools to form clouds?", correct_answer: "Condensation", incorrect_answers: ["Precipitation", "Evaporation", "Collection"] },
+                        { question: "Which of the following is an example of precipitation?", correct_answer: "Rain", incorrect_answers: ["A cloud", "Water vapor", "Sunlight"] }
+                    ]
                 }
-            });
-
-            if (selectedOption !== correctOption) {
-                selectedButton.style.background = '#fee2e2';
-                selectedButton.style.borderColor = '#ef4444';
-            }
-
-            document.getElementById('next-quiz-btn').style.display = 'block';
-        }
-
-        function updateProgressBar() {
-            if (activeDataset.length === 0) return;
-            const percentage = ((currentIndex + 1) / activeDataset.length) * 100;
-            document.getElementById('progress').style.width = `${percentage}%`;
-        }
-    </script>
-</body>
-</html>
+            ],
+            hard: [
+                {
