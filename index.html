@@ -306,27 +306,27 @@
         <div id="subject-screen" class="setup-screen">
             <h2>Choose a Subject 📚</h2>
             <div class="menu-options">
-                <button class="menu-btn" onclick="selectSubject('math')">🔢 Math</button>
-                <button class="menu-btn" onclick="selectSubject('reading')">📖 Reading</button>
-                <button class="menu-btn" onclick="selectSubject('science')">🔬 Science</button>
+                <button class="menu-btn" onclick="window.selectSubject('math')">🔢 Math</button>
+                <button class="menu-btn" onclick="window.selectSubject('reading')">📖 Reading</button>
+                <button class="menu-btn" onclick="window.selectSubject('science')">🔬 Science</button>
             </div>
         </div>
 
         <div id="level-screen" class="setup-screen hidden">
             <h2>Select Your Grade 🎯</h2>
             <div class="grade-grid">
-                <button class="menu-btn" onclick="startApp(1)">1st</button>
-                <button class="menu-btn" onclick="startApp(2)">2nd</button>
-                <button class="menu-btn" onclick="startApp(3)">3rd</button>
-                <button class="menu-btn" onclick="startApp(4)">4th</button>
-                <button class="menu-btn" onclick="startApp(5)">5th</button>
-                <button class="menu-btn" onclick="startApp(6)">6th</button>
-                <button class="menu-btn" onclick="startApp(7)">7th</button>
-                <button class="menu-btn" onclick="startApp(8)">8th</button>
-                <button class="menu-btn" onclick="startApp(9)">9th</button>
-                <button class="menu-btn" onclick="startApp(10)">10th</button>
-                <button class="menu-btn" onclick="startApp(11)">11th</button>
-                <button class="menu-btn" onclick="startApp(12)">12th</button>
+                <button class="menu-btn" onclick="window.startApp(1)">1st</button>
+                <button class="menu-btn" onclick="window.startApp(2)">2nd</button>
+                <button class="menu-btn" onclick="window.startApp(3)">3rd</button>
+                <button class="menu-btn" onclick="window.startApp(4)">4th</button>
+                <button class="menu-btn" onclick="window.startApp(5)">5th</button>
+                <button class="menu-btn" onclick="window.startApp(6)">6th</button>
+                <button class="menu-btn" onclick="window.startApp(7)">7th</button>
+                <button class="menu-btn" onclick="window.startApp(8)">8th</button>
+                <button class="menu-btn" onclick="window.startApp(9)">9th</button>
+                <button class="menu-btn" onclick="window.startApp(10)">10th</button>
+                <button class="menu-btn" onclick="window.startApp(11)">11th</button>
+                <button class="menu-btn" onclick="window.startApp(12)">12th</button>
             </div>
         </div>
 
@@ -336,8 +336,8 @@
 
         <div id="main-app" class="hidden">
             <div class="tabs">
-                <button class="tab-btn active" onclick="switchMode('flashcards')">Flashcards</button>
-                <button class="tab-btn" onclick="switchMode('quiz')">Quiz</button>
+                <button class="tab-btn active" onclick="window.switchMode('flashcards')">Flashcards</button>
+                <button class="tab-btn" onclick="window.switchMode('quiz')">Quiz</button>
             </div>
 
             <div class="progress-container">
@@ -350,20 +350,20 @@
             </div>
 
             <div id="flashcard-view" class="app-card">
-                <div class="flashcard" onclick="flipCard()">
+                <div class="flashcard" onclick="window.flipCard()">
                     <div id="card-text" class="flashcard-content">Loading...</div>
                 </div>
 
                 <p style="color: var(--text-light); font-size: 0.85rem; margin-bottom: 10px;">Click card to flip</p>
 
                 <div id="reading-voice-module" class="voice-section hidden">
-                    <button id="mic-btn" class="mic-btn" onclick="toggleListening()">🎤 Tap & Read Flashcard</button>
+                    <button id="mic-btn" class="mic-btn" onclick="window.toggleListening()">🎤 Tap & Read Flashcard</button>
                     <div id="feedback" class="feedback-text"></div>
                 </div>
 
                 <div class="controls">
-                    <button class="btn btn-secondary" onclick="prevItem()">Previous</button>
-                    <button class="btn btn-primary" onclick="nextItem()">Next Card</button>
+                    <button class="btn btn-secondary" onclick="window.prevItem()">Previous</button>
+                    <button class="btn btn-primary" onclick="window.nextItem()">Next Card</button>
                 </div>
             </div>
 
@@ -371,7 +371,7 @@
                 <h3 id="quiz-question" style="font-size: 1.3rem; margin-bottom: 15px;">Loading Question...</h3>
                 <div id="quiz-options" class="quiz-options"></div>
                 <div class="controls">
-                    <button class="btn btn-primary" id="next-quiz-btn" onclick="nextItem()" style="display: none;">Next Question</button>
+                    <button class="btn btn-primary" id="next-quiz-btn" onclick="window.nextItem()" style="display: none;">Next Question</button>
                 </div>
             </div>
         </div>
@@ -424,18 +424,17 @@
         let currentIndex = 0;
         let isFlipped = false;
         let currentMode = 'flashcards';
-
-        // Variables for Speech Recognition
         let recognition;
         let isListening = false;
 
-        function selectSubject(subject) {
+        // Force bind functions to global window object
+        window.selectSubject = function(subject) {
             chosenSubject = subject;
             document.getElementById('subject-screen').classList.add('hidden');
             document.getElementById('level-screen').classList.remove('hidden');
-        }
+        };
 
-        async function startApp(grade) {
+        window.startApp = async function(grade) {
             if (grade <= 5) {
                 chosenDifficulty = 'easy';
             } else if (grade <= 8) {
@@ -452,7 +451,7 @@
             } else {
                 await fetchLiveTrivia();
             }
-        }
+        };
 
         function setupReadingLesson() {
             const passages = readingDatabase[chosenDifficulty];
@@ -518,7 +517,7 @@
             
             currentIndex = 0;
             isFlipped = false;
-            setupSpeechRecognition(); // Initialize the microphone tools
+            setupSpeechRecognition(); 
             updateFlashcard();
             updateQuiz();
             updateProgressBar();
@@ -530,7 +529,7 @@
             return txt.value;
         }
 
-        function switchMode(mode) {
+        window.switchMode = function(mode) {
             currentMode = mode;
             document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
             event.target.classList.add('active');
@@ -546,9 +545,9 @@
                 updateQuiz();
             }
             updateProgressBar();
-        }
+        };
 
-        function nextItem() {
+        window.nextItem = function() {
             if (currentIndex < activeDataset.length - 1) {
                 currentIndex++;
                 isFlipped = false;
@@ -558,16 +557,16 @@
                 alert("🎉 Lesson completed! Heading back to the main menu.");
                 location.reload();
             }
-        }
+        };
 
-        function prevItem() {
+        window.prevItem = function() {
             if (currentIndex > 0) {
                 currentIndex--;
                 isFlipped = false;
                 updateFlashcard();
                 updateProgressBar();
             }
-        }
+        };
 
         function updateFlashcard() {
             if (activeDataset.length === 0) return;
@@ -577,10 +576,8 @@
             cardText.innerText = isFlipped ? activeDataset[currentIndex].answer : activeDataset[currentIndex].question;
             cardText.style.color = isFlipped ? 'var(--primary)' : 'var(--text)';
             
-            // Clear out any old feedback text when you flip or change cards
             document.getElementById('feedback').innerText = '';
 
-            // Make sure the microphone button only shows up during Reading
             if (chosenSubject === 'reading') {
                 voiceModule.classList.remove('hidden');
             } else {
@@ -588,12 +585,11 @@
             }
         }
 
-        function flipCard() {
+        window.flipCard = function() {
             isFlipped = !isFlipped;
             updateFlashcard();
-        }
+        };
 
-        // --- SPEECH RECOGNITION SYSTEM RESTORED ---
         function setupSpeechRecognition() {
             window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
             if (window.SpeechRecognition) {
@@ -603,19 +599,103 @@
                 recognition.interimResults = false;
 
                 recognition.onresult = function(event) {
-                    const spokenText = event.results[0][0].transcript.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()"]/g,"");
-                    
-                    // Match against whatever text is CURRENTLY showing on the flashcard!
-                    const currentCardText = document.getElementById('card-text').innerText.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()"]/g,"");
+                    // Safe regex to remove punctuation so it matches purely based on words
+                    const spokenText = event.results[0][0].transcript.toLowerCase().replace(/[^\w\s]/gi, '');
+                    const currentCardText = document.getElementById('card-text').innerText.toLowerCase().replace(/[^\w\s]/gi, '');
                     
                     const feedbackDiv = document.getElementById('feedback');
                     
-                    // Check if they matched it perfectly
                     if (spokenText.trim() === currentCardText.trim()) {
                         feedbackDiv.innerText = "✨ Perfect! You read it exactly right!";
                         feedbackDiv.style.color = "var(--success)";
                     } else {
                         feedbackDiv.innerText = `❌ Not quite! You said: "${event.results[0][0].transcript}". Let me help you out.`;
                         feedbackDiv.style.color = "var(--error)";
-                        // Use AI voice to read it correctly to them
-                        speakCorrectWay(document.getElementById('card
+                        speakCorrectWay(document.getElementById('card-text').innerText);
+                    }
+                    stopListeningMode();
+                };
+
+                recognition.onerror = function() { stopListeningMode(); };
+                recognition.onend = function() { stopListeningMode(); };
+            }
+        }
+
+        window.toggleListening = function() {
+            if (!recognition) {
+                alert("Speech recognition isn't supported on this browser. Try opening the app in Google Chrome or Safari!");
+                return;
+            }
+            if (isListening) {
+                recognition.stop();
+                stopListeningMode();
+            } else {
+                isListening = true;
+                const btn = document.getElementById('mic-btn');
+                btn.innerText = "🎙️ Listening... Read the flashcard aloud!";
+                btn.classList.add('recording');
+                recognition.start();
+            }
+        };
+
+        function stopListeningMode() {
+            isListening = false;
+            const btn = document.getElementById('mic-btn');
+            if(btn) {
+                btn.innerText = "🎤 Tap & Read Flashcard";
+                btn.classList.remove('recording');
+            }
+        }
+
+        function speakCorrectWay(text) {
+            if ('speechSynthesis' in window) {
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'en-US';
+                utterance.rate = 0.9;
+                window.speechSynthesis.speak(utterance);
+            }
+        }
+
+        function updateQuiz() {
+            if (activeDataset.length === 0) return;
+            const item = activeDataset[currentIndex];
+            document.getElementById('quiz-question').innerText = item.question;
+            const optionsContainer = document.getElementById('quiz-options');
+            optionsContainer.innerHTML = '';
+            document.getElementById('next-quiz-btn').style.display = 'none';
+
+            item.options.forEach(option => {
+                const button = document.createElement('button');
+                button.className = 'option-btn';
+                button.innerText = option;
+                button.onclick = () => window.checkAnswer(button, option, item.answer);
+                optionsContainer.appendChild(button);
+            });
+        }
+
+        window.checkAnswer = function(selectedButton, selectedOption, correctOption) {
+            const buttons = document.querySelectorAll('.option-btn');
+            buttons.forEach(btn => {
+                btn.disabled = true;
+                if (btn.innerText === correctOption) {
+                    btn.style.background = '#d1fae5';
+                    btn.style.borderColor = '#10b981';
+                }
+            });
+
+            if (selectedOption !== correctOption) {
+                selectedButton.style.background = '#fee2e2';
+                selectedButton.style.borderColor = '#ef4444';
+            }
+
+            document.getElementById('next-quiz-btn').style.display = 'block';
+        };
+
+        function updateProgressBar() {
+            if (activeDataset.length === 0) return;
+            const percentage = ((currentIndex + 1) / activeDataset.length) * 100;
+            document.getElementById('progress').style.width = `${percentage}%`;
+        }
+    </script>
+</body>
+</html>
