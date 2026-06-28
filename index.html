@@ -366,365 +366,130 @@
     </div>
 
     <script>
-        // Massive Custom Database for EVERY Grade Level!
+        // MASSIVELY EXPANDED Curriculum Database
         const curriculumDatabase = {
             math: {
                 1: [
                     { question: "What is 2 + 3?", correct_answer: "5", incorrect_answers: ["4", "6", "3"] },
-                    { question: "What is 5 - 1?", correct_answer: "4", incorrect_answers: ["3", "5", "2"] }
+                    { question: "What is 8 - 4?", correct_answer: "4", incorrect_answers: ["3", "5", "2"] },
+                    { question: "How many sides does a triangle have?", correct_answer: "3", incorrect_answers: ["4", "5", "2"] },
+                    { question: "What comes next: 2, 4, 6, ___?", correct_answer: "8", incorrect_answers: ["7", "9", "10"] }
                 ],
                 2: [
                     { question: "What is 12 + 8?", correct_answer: "20", incorrect_answers: ["18", "22", "19"] },
-                    { question: "What is 15 - 7?", correct_answer: "8", incorrect_answers: ["7", "9", "6"] }
+                    { question: "What is 15 - 7?", correct_answer: "8", incorrect_answers: ["7", "9", "6"] },
+                    { question: "How many pennies are in one dollar?", correct_answer: "100", incorrect_answers: ["10", "50", "25"] },
+                    { question: "If you have 3 dimes, how much money do you have?", correct_answer: "30 cents", incorrect_answers: ["3 cents", "15 cents", "300 cents"] }
                 ],
                 3: [
                     { question: "What is 4 x 3?", correct_answer: "12", incorrect_answers: ["7", "16", "14"] },
-                    { question: "What is 20 ÷ 5?", correct_answer: "4", incorrect_answers: ["5", "3", "6"] }
+                    { question: "What is 20 ÷ 5?", correct_answer: "4", incorrect_answers: ["5", "3", "6"] },
+                    { question: "What fraction is half of a pizza?", correct_answer: "1/2", incorrect_answers: ["1/4", "1/3", "2/3"] },
+                    { question: "What is 7 x 7?", correct_answer: "49", incorrect_answers: ["42", "56", "35"] }
                 ],
                 4: [
-                    { question: "What is 8 x 7?", correct_answer: "56", incorrect_answers: ["54", "64", "48"] },
-                    { question: "What is 1/2 of 20?", correct_answer: "10", incorrect_answers: ["5", "15", "12"] }
+                    { question: "What is 12 x 12?", correct_answer: "144", incorrect_answers: ["124", "100", "140"] },
+                    { question: "What is the area of a rectangle that is 5 long and 4 wide?", correct_answer: "20", incorrect_answers: ["9", "18", "25"] },
+                    { question: "What is 1/4 + 2/4?", correct_answer: "3/4", incorrect_answers: ["2/4", "1/2", "1/8"] },
+                    { question: "Convert 0.5 to a fraction.", correct_answer: "1/2", incorrect_answers: ["1/5", "1/10", "1/4"] }
                 ],
                 5: [
                     { question: "What is 1.5 + 2.5?", correct_answer: "4.0", incorrect_answers: ["3.5", "4.5", "3.0"] },
-                    { question: "What is the perimeter of a 4x4 square?", correct_answer: "16", incorrect_answers: ["8", "12", "20"] }
+                    { question: "What is the volume of a cube with 3cm sides?", correct_answer: "27 cm³", incorrect_answers: ["9 cm³", "18 cm³", "12 cm³"] },
+                    { question: "What is 1/2 x 1/2?", correct_answer: "1/4", incorrect_answers: ["1/2", "1", "1/8"] },
+                    { question: "Order from least to greatest: 0.2, 0.05, 0.5", correct_answer: "0.05, 0.2, 0.5", incorrect_answers: ["0.5, 0.2, 0.05", "0.2, 0.5, 0.05", "0.05, 0.5, 0.2"] }
                 ],
                 6: [
                     { question: "What is 20% of 50?", correct_answer: "10", incorrect_answers: ["5", "15", "20"] },
-                    { question: "Simplify the ratio 4:8", correct_answer: "1:2", incorrect_answers: ["2:4", "1:3", "1:4"] }
+                    { question: "Simplify the ratio 4:8", correct_answer: "1:2", incorrect_answers: ["2:4", "1:3", "1:4"] },
+                    { question: "Solve for x: x + 7 = 15", correct_answer: "8", incorrect_answers: ["7", "6", "9"] },
+                    { question: "Find the mean (average) of 2, 4, and 6.", correct_answer: "4", incorrect_answers: ["3", "5", "12"] }
                 ],
                 7: [
-                    { question: "If x - 5 = 10, what is x?", correct_answer: "15", incorrect_answers: ["5", "10", "20"] },
-                    { question: "What is the area of a circle with radius 3? (Use π ≈ 3.14)", correct_answer: "28.26", incorrect_answers: ["9.42", "18.84", "12.56"] }
+                    { question: "If 2x = 10, what is x?", correct_answer: "5", incorrect_answers: ["2", "8", "12"] },
+                    { question: "What is the area of a circle with radius 3? (Use π ≈ 3.14)", correct_answer: "28.26", incorrect_answers: ["9.42", "18.84", "12.56"] },
+                    { question: "What is -5 + (-3)?", correct_answer: "-8", incorrect_answers: ["-2", "2", "8"] },
+                    { question: "If a shirt is $20 and is 25% off, what is the discount amount?", correct_answer: "$5", incorrect_answers: ["$15", "$2", "$10"] }
                 ],
                 8: [
                     { question: "Solve for y: 2y + 4 = 12", correct_answer: "4", incorrect_answers: ["3", "5", "6"] },
-                    { question: "What is 3 squared (3²)?", correct_answer: "9", incorrect_answers: ["6", "12", "27"] }
+                    { question: "What is 3 cubed (3³)?", correct_answer: "27", incorrect_answers: ["9", "12", "81"] },
+                    { question: "Find the hypotenuse of a right triangle with sides 3 and 4.", correct_answer: "5", incorrect_answers: ["6", "7", "25"] },
+                    { question: "What is the square root of 64?", correct_answer: "8", incorrect_answers: ["6", "7", "9"] }
                 ],
                 9: [
                     { question: "What is the slope of the line y = 3x + 2?", correct_answer: "3", incorrect_answers: ["2", "x", "-3"] },
-                    { question: "Find the hypotenuse of a right triangle with sides 3 and 4.", correct_answer: "5", incorrect_answers: ["6", "7", "25"] }
+                    { question: "Expand (x + 2)(x + 3)", correct_answer: "x² + 5x + 6", incorrect_answers: ["x² + 6", "x² + 5x + 5", "2x + 5"] },
+                    { question: "Solve the inequality: 2x > 10", correct_answer: "x > 5", incorrect_answers: ["x < 5", "x = 5", "x > 8"] },
+                    { question: "What is the y-intercept of y = -4x + 7?", correct_answer: "7", incorrect_answers: ["-4", "4", "-7"] }
                 ],
                 10: [
                     { question: "What are the roots of x² - 4 = 0?", correct_answer: "2 and -2", incorrect_answers: ["2 only", "4 and -4", "0 and 4"] },
-                    { question: "In a right triangle, what is Sine?", correct_answer: "Opposite / Hypotenuse", incorrect_answers: ["Adjacent / Hypotenuse", "Opposite / Adjacent", "Hypotenuse / Opposite"] }
+                    { question: "In a right triangle, what is Sine?", correct_answer: "Opposite / Hypotenuse", incorrect_answers: ["Adjacent / Hypotenuse", "Opposite / Adjacent", "Hypotenuse / Opposite"] },
+                    { question: "What is the sum of interior angles of a triangle?", correct_answer: "180 degrees", incorrect_answers: ["360 degrees", "90 degrees", "270 degrees"] },
+                    { question: "If the radius of a circle is 5, what is its circumference? (C = 2πr)", correct_answer: "10π", incorrect_answers: ["5π", "25π", "20π"] }
                 ],
                 11: [
                     { question: "What is the value of log₁₀(100)?", correct_answer: "2", incorrect_answers: ["10", "1", "100"] },
-                    { question: "What is the formula for the quadratic equation?", correct_answer: "-b ± √(b² - 4ac) / 2a", incorrect_answers: ["a² + b² = c²", "y = mx + b", "A = πr²"] }
+                    { question: "What is the formula for the quadratic equation?", correct_answer: "-b ± √(b² - 4ac) / 2a", incorrect_answers: ["a² + b² = c²", "y = mx + b", "A = πr²"] },
+                    { question: "Evaluate: i² (where i is the imaginary unit)", correct_answer: "-1", incorrect_answers: ["1", "0", "-i"] },
+                    { question: "What is the domain of f(x) = 1/x?", correct_answer: "All real numbers except 0", incorrect_answers: ["All real numbers", "x > 0", "x < 0"] }
                 ],
                 12: [
                     { question: "What is the derivative of x²?", correct_answer: "2x", incorrect_answers: ["x", "2", "x²"] },
-                    { question: "What is the integral of 2x dx?", correct_answer: "x² + C", incorrect_answers: ["2x² + C", "x + C", "2 + C"] }
+                    { question: "What is the integral of 2x dx?", correct_answer: "x² + C", incorrect_answers: ["2x² + C", "x + C", "2 + C"] },
+                    { question: "What is the limit of (1/x) as x approaches infinity?", correct_answer: "0", incorrect_answers: ["Infinity", "1", "-1"] },
+                    { question: "What is the derivative of sin(x)?", correct_answer: "cos(x)", incorrect_answers: ["-cos(x)", "sin(x)", "-sin(x)"] }
                 ]
             },
             science: {
                 1: [
-                    { question: "Which body part do you use to see?", correct_answer: "Eyes", incorrect_answers: ["Ears", "Nose", "Mouth"] }
+                    { question: "Which body part do you use to see?", correct_answer: "Eyes", incorrect_answers: ["Ears", "Nose", "Mouth"] },
+                    { question: "Is a rock living or non-living?", correct_answer: "Non-living", incorrect_answers: ["Living", "Both", "Plant"] },
+                    { question: "What falls from the sky when it rains?", correct_answer: "Water", incorrect_answers: ["Snow", "Dirt", "Leaves"] },
+                    { question: "How many legs does a dog have?", correct_answer: "4", incorrect_answers: ["2", "6", "8"] }
                 ],
                 2: [
-                    { question: "What do plants need to grow?", correct_answer: "Water and sunlight", incorrect_answers: ["Milk and bread", "Soda and ice", "Rocks and sand"] }
+                    { question: "What do plants need to grow?", correct_answer: "Water and sunlight", incorrect_answers: ["Milk and bread", "Soda and ice", "Rocks and sand"] },
+                    { question: "Which animal lives in the ocean?", correct_answer: "Shark", incorrect_answers: ["Lion", "Eagle", "Bear"] },
+                    { question: "What is ice made of?", correct_answer: "Frozen water", incorrect_answers: ["Frozen milk", "Glass", "Plastic"] },
+                    { question: "What part of a plant holds it in the soil?", correct_answer: "Roots", incorrect_answers: ["Leaves", "Stem", "Flowers"] }
                 ],
                 3: [
-                    { question: "What planet do we live on?", correct_answer: "Earth", incorrect_answers: ["Mars", "Venus", "Jupiter"] }
+                    { question: "What planet do we live on?", correct_answer: "Earth", incorrect_answers: ["Mars", "Venus", "Jupiter"] },
+                    { question: "Which of these is attracted to a magnet?", correct_answer: "Iron nail", incorrect_answers: ["Wood stick", "Plastic cup", "Rubber band"] },
+                    { question: "What do caterpillars turn into?", correct_answer: "Butterflies", incorrect_answers: ["Birds", "Frogs", "Beetles"] },
+                    { question: "What force keeps us on the ground?", correct_answer: "Gravity", incorrect_answers: ["Wind", "Magnetism", "Electricity"] }
                 ],
                 4: [
-                    { question: "Which is a liquid?", correct_answer: "Water", incorrect_answers: ["Ice", "Steam", "Wood"] }
+                    { question: "Which is a liquid?", correct_answer: "Water", incorrect_answers: ["Ice", "Steam", "Wood"] },
+                    { question: "What gives Earth heat and light?", correct_answer: "The Sun", incorrect_answers: ["The Moon", "The Stars", "Volcanoes"] },
+                    { question: "What type of rock is formed by cooling lava?", correct_answer: "Igneous", incorrect_answers: ["Sedimentary", "Metamorphic", "Sandstone"] },
+                    { question: "Animals that eat only plants are called?", correct_answer: "Herbivores", incorrect_answers: ["Carnivores", "Omnivores", "Predators"] }
                 ],
                 5: [
-                    { question: "What is the center of our solar system?", correct_answer: "The Sun", incorrect_answers: ["Earth", "The Moon", "Jupiter"] }
+                    { question: "What is the center of our solar system?", correct_answer: "The Sun", incorrect_answers: ["Earth", "The Moon", "Jupiter"] },
+                    { question: "Which gas do humans breathe out?", correct_answer: "Carbon Dioxide", incorrect_answers: ["Oxygen", "Nitrogen", "Helium"] },
+                    { question: "What is the thickest layer of the Earth?", correct_answer: "The Mantle", incorrect_answers: ["The Crust", "The Core", "The Atmosphere"] },
+                    { question: "Water boiling and turning to steam is a?", correct_answer: "Physical change", incorrect_answers: ["Chemical change", "Biological change", "Nuclear change"] }
                 ],
                 6: [
-                    { question: "What gas do plants breathe in?", correct_answer: "Carbon Dioxide", incorrect_answers: ["Oxygen", "Nitrogen", "Helium"] }
+                    { question: "What gas do plants breathe in?", correct_answer: "Carbon Dioxide", incorrect_answers: ["Oxygen", "Nitrogen", "Helium"] },
+                    { question: "What are the building blocks of all matter?", correct_answer: "Atoms", incorrect_answers: ["Cells", "Molecules", "Tissues"] },
+                    { question: "What causes tectonic plates to move?", correct_answer: "Mantle convection currents", incorrect_answers: ["Ocean waves", "Wind", "The moon's gravity"] },
+                    { question: "Energy from the sun is called?", correct_answer: "Solar energy", incorrect_answers: ["Geothermal energy", "Kinetic energy", "Nuclear energy"] }
                 ],
                 7: [
-                    { question: "What is the powerhouse of the cell?", correct_answer: "Mitochondria", incorrect_answers: ["Nucleus", "Ribosome", "Membrane"] }
+                    { question: "What is the powerhouse of the cell?", correct_answer: "Mitochondria", incorrect_answers: ["Nucleus", "Ribosome", "Membrane"] },
+                    { question: "In the periodic table, what is 'O'?", correct_answer: "Oxygen", incorrect_answers: ["Gold", "Osmosis", "Hydrogen"] },
+                    { question: "Which of Newton's laws states 'For every action, there is an equal and opposite reaction'?", correct_answer: "Third Law", incorrect_answers: ["First Law", "Second Law", "Fourth Law"] },
+                    { question: "What part of a plant cell performs photosynthesis?", correct_answer: "Chloroplast", incorrect_answers: ["Nucleus", "Cell Wall", "Vacuole"] }
                 ],
                 8: [
-                    { question: "What is the chemical symbol for water?", correct_answer: "H2O", incorrect_answers: ["O2", "CO2", "HO"] }
+                    { question: "What is the chemical symbol for water?", correct_answer: "H2O", incorrect_answers: ["O2", "CO2", "HO"] },
+                    { question: "Sound travels fastest through which medium?", correct_answer: "Solids", incorrect_answers: ["Liquids", "Gases", "A vacuum"] },
+                    { question: "What tool is used to predict the probability of genetic traits?", correct_answer: "Punnett Square", incorrect_answers: ["Microscope", "Telescope", "Barometer"] },
+                    { question: "What type of galaxy is the Milky Way?", correct_answer: "Spiral", incorrect_answers: ["Elliptical", "Irregular", "Circular"] }
                 ],
                 9: [
-                    { question: "What force pulls objects toward the Earth?", correct_answer: "Gravity", incorrect_answers: ["Magnetism", "Friction", "Inertia"] }
-                ],
-                10: [
-                    { question: "What carries genetic information in living things?", correct_answer: "DNA", incorrect_answers: ["RNA", "Proteins", "Lipids"] }
-                ],
-                11: [
-                    { question: "What is the atomic number of Hydrogen?", correct_answer: "1", incorrect_answers: ["2", "10", "14"] }
-                ],
-                12: [
-                    { question: "What is the speed of light in a vacuum?", correct_answer: "300,000 km/s", incorrect_answers: ["150,000 km/s", "1,000 km/s", "3,000,000 km/s"] }
-                ]
-            },
-            reading: {
-                1: {
-                    passage: "The cat is orange. The cat sits on the mat. The mat is blue. The cat likes to sleep.",
-                    questions: [{ question: "What color is the cat?", correct_answer: "Orange", incorrect_answers: ["Blue", "Black", "White"] }]
-                },
-                2: {
-                    passage: "Tim has a red bicycle. He rides it to the park every day. His friend Sarah has a blue scooter. They like to race each other.",
-                    questions: [{ question: "What does Tim ride to the park?", correct_answer: "A red bicycle", incorrect_answers: ["A blue scooter", "A skateboard", "A car"] }]
-                },
-                3: {
-                    passage: "Bees are very important insects. They fly from flower to flower to collect nectar. They use the nectar to make sweet honey inside their hive.",
-                    questions: [{ question: "What do bees collect from flowers?", correct_answer: "Nectar", incorrect_answers: ["Honey", "Water", "Leaves"] }]
-                },
-                4: {
-                    passage: "The solar system has eight planets. The closest planet to the sun is Mercury, but the hottest planet is Venus. Earth is the third planet from the sun.",
-                    questions: [{ question: "Which planet is the hottest?", correct_answer: "Venus", incorrect_answers: ["Mercury", "Earth", "Mars"] }]
-                },
-                5: {
-                    passage: "Thomas Edison was a famous inventor. While he did not invent the first lightbulb, he created the first practical and long-lasting electric lightbulb in 1879.",
-                    questions: [{ question: "What did Thomas Edison create in 1879?", correct_answer: "A practical, long-lasting lightbulb", incorrect_answers: ["The very first lightbulb", "The telephone", "The battery"] }]
-                },
-                6: {
-                    passage: "Photosynthesis is the process plants use to make food. They take in sunlight, water, and carbon dioxide, and turn them into glucose and oxygen.",
-                    questions: [{ question: "What do plants release during photosynthesis?", correct_answer: "Oxygen", incorrect_answers: ["Carbon Dioxide", "Sunlight", "Water"] }]
-                },
-                7: {
-                    passage: "Ancient Egypt was located along the Nile River. The river flooded every year, providing rich soil for farming. The Egyptians built massive pyramids as tombs for their pharaohs.",
-                    questions: [{ question: "Why was the Nile River important to ancient Egyptians?", correct_answer: "It provided rich soil for farming", incorrect_answers: ["It was used to build pyramids", "It stopped invaders", "It provided drinking water only"] }]
-                },
-                8: {
-                    passage: "The Industrial Revolution marked a major turning point in history. It transitioned societies from manual labor and farming to machine-based manufacturing, starting in Great Britain in the 18th century.",
-                    questions: [{ question: "Where did the Industrial Revolution begin?", correct_answer: "Great Britain", incorrect_answers: ["United States", "France", "Germany"] }]
-                },
-                9: {
-                    passage: "In literature, the theme is the underlying message or central idea that the author wants to convey. It is different from the plot, which is simply the sequence of events that make up the story.",
-                    questions: [{ question: "How does a theme differ from a plot?", correct_answer: "The theme is the message; the plot is the events", incorrect_answers: ["The plot is the message; the theme is the characters", "They are exactly the same thing", "The theme is the setting of the story"] }]
-                },
-                10: {
-                    passage: "An ecosystem consists of all the living organisms in a given area interacting with their physical environment. These systems maintain balance through energy flows and nutrient cycles.",
-                    questions: [{ question: "What maintains the balance within an ecosystem?", correct_answer: "Energy flows and nutrient cycles", incorrect_answers: ["Only the living organisms", "Only the physical environment", "Human intervention"] }]
-                },
-                11: {
-                    passage: "The United States Constitution establishes the framework of the federal government. It divides power into three branches: the Legislative makes laws, the Executive enforces laws, and the Judicial interprets laws.",
-                    questions: [{ question: "Which branch of government is responsible for enforcing laws?", correct_answer: "Executive", incorrect_answers: ["Legislative", "Judicial", "Constitutional"] }]
-                },
-                12: {
-                    passage: "Quantum mechanics is a fundamental theory in physics that describes nature at the smallest scales of energy levels of atoms and subatomic particles. Unlike classical physics, it dictates that energy, momentum, and other quantities are restricted to discrete values.",
-                    questions: [{ question: "What is a key difference between classical physics and quantum mechanics?", correct_answer: "Quantum mechanics restricts energy to discrete values", incorrect_answers: ["Classical physics only applies to atoms", "Quantum mechanics deals with massive planets", "Classical physics is newer"] }]
-                }
-            }
-        };
-
-        let chosenSubject = '';
-        let activeDataset = [];
-        let currentIndex = 0;
-        let isFlipped = false;
-        let currentMode = 'flashcards';
-        let recognition;
-        let isListening = false;
-
-        // BIND FUNCTIONS TO WINDOW
-        window.selectSubject = function(subject) {
-            chosenSubject = subject;
-            document.getElementById('subject-screen').classList.add('hidden');
-            document.getElementById('level-screen').classList.remove('hidden');
-        };
-
-        window.startApp = function(grade) {
-            document.getElementById('level-screen').classList.add('hidden');
-            
-            // Build the lesson dynamically from the internal database
-            if (chosenSubject === 'reading') {
-                const lessonData = curriculumDatabase.reading[grade];
-                document.getElementById('passage-text').innerText = lessonData.passage;
-                document.getElementById('reading-passage').classList.remove('hidden');
-                
-                activeDataset = lessonData.questions.map(item => {
-                    const choices = [...item.incorrect_answers];
-                    choices.push(item.correct_answer);
-                    choices.sort(() => Math.random() - 0.5); // Shuffle
-                    return { question: item.question, answer: item.correct_answer, options: choices };
-                });
-            } else {
-                document.getElementById('reading-passage').classList.add('hidden');
-                const rawQuestions = curriculumDatabase[chosenSubject][grade];
-                
-                activeDataset = rawQuestions.map(item => {
-                    const choices = [...item.incorrect_answers];
-                    choices.push(item.correct_answer);
-                    choices.sort(() => Math.random() - 0.5); // Shuffle
-                    return { question: item.question, answer: item.correct_answer, options: choices };
-                });
-            }
-
-            document.getElementById('main-app').classList.remove('hidden');
-            currentIndex = 0;
-            isFlipped = false;
-            setupSpeechRecognition(); 
-            updateFlashcard();
-            updateQuiz();
-            updateProgressBar();
-        };
-
-        window.switchMode = function(mode) {
-            currentMode = mode;
-            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
-
-            if (mode === 'flashcards') {
-                document.getElementById('flashcard-view').classList.remove('hidden');
-                document.getElementById('quiz-view').classList.add('hidden');
-                isFlipped = false;
-                updateFlashcard();
-            } else {
-                document.getElementById('flashcard-view').classList.add('hidden');
-                document.getElementById('quiz-view').classList.remove('hidden');
-                updateQuiz();
-            }
-            updateProgressBar();
-        };
-
-        window.nextItem = function() {
-            if (currentIndex < activeDataset.length - 1) {
-                currentIndex++;
-                isFlipped = false;
-                currentMode === 'flashcards' ? updateFlashcard() : updateQuiz();
-                updateProgressBar();
-            } else {
-                alert("🎉 Lesson completed! Heading back to the main menu.");
-                location.reload();
-            }
-        };
-
-        window.prevItem = function() {
-            if (currentIndex > 0) {
-                currentIndex--;
-                isFlipped = false;
-                updateFlashcard();
-                updateProgressBar();
-            }
-        };
-
-        function updateFlashcard() {
-            if (activeDataset.length === 0) return;
-            const cardText = document.getElementById('card-text');
-            const voiceModule = document.getElementById('reading-voice-module');
-            
-            cardText.innerText = isFlipped ? activeDataset[currentIndex].answer : activeDataset[currentIndex].question;
-            cardText.style.color = isFlipped ? 'var(--primary)' : 'var(--text)';
-            
-            document.getElementById('feedback').innerText = '';
-
-            if (chosenSubject === 'reading') {
-                voiceModule.classList.remove('hidden');
-            } else {
-                voiceModule.classList.add('hidden');
-            }
-        }
-
-        window.flipCard = function() {
-            isFlipped = !isFlipped;
-            updateFlashcard();
-        };
-
-        function setupSpeechRecognition() {
-            window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-            if (window.SpeechRecognition) {
-                recognition = new SpeechRecognition();
-                recognition.continuous = false;
-                recognition.lang = 'en-US';
-                recognition.interimResults = false;
-
-                recognition.onresult = function(event) {
-                    const spokenText = event.results[0][0].transcript.toLowerCase().replace(/[^\w\s]/gi, '');
-                    const currentCardText = document.getElementById('card-text').innerText.toLowerCase().replace(/[^\w\s]/gi, '');
-                    
-                    const feedbackDiv = document.getElementById('feedback');
-                    
-                    if (spokenText.trim() === currentCardText.trim()) {
-                        feedbackDiv.innerText = "✨ Perfect! You read it exactly right!";
-                        feedbackDiv.style.color = "var(--success)";
-                    } else {
-                        feedbackDiv.innerText = `❌ Not quite! You said: "${event.results[0][0].transcript}". Let me help you out.`;
-                        feedbackDiv.style.color = "var(--error)";
-                        speakCorrectWay(document.getElementById('card-text').innerText);
-                    }
-                    stopListeningMode();
-                };
-
-                recognition.onerror = function() { stopListeningMode(); };
-                recognition.onend = function() { stopListeningMode(); };
-            }
-        }
-
-        window.toggleListening = function() {
-            if (!recognition) {
-                alert("Speech recognition isn't supported on this browser. Try opening the app in Google Chrome or Safari!");
-                return;
-            }
-            if (isListening) {
-                recognition.stop();
-                stopListeningMode();
-            } else {
-                isListening = true;
-                const btn = document.getElementById('mic-btn');
-                btn.innerText = "🎙️ Listening... Read the flashcard aloud!";
-                btn.classList.add('recording');
-                recognition.start();
-            }
-        };
-
-        function stopListeningMode() {
-            isListening = false;
-            const btn = document.getElementById('mic-btn');
-            if(btn) {
-                btn.innerText = "🎤 Tap & Read Flashcard";
-                btn.classList.remove('recording');
-            }
-        }
-
-        function speakCorrectWay(text) {
-            if ('speechSynthesis' in window) {
-                const utterance = new SpeechSynthesisUtterance(text);
-                utterance.lang = 'en-US';
-                utterance.rate = 0.9;
-                window.speechSynthesis.speak(utterance);
-            }
-        }
-
-        function updateQuiz() {
-            if (activeDataset.length === 0) return;
-            const item = activeDataset[currentIndex];
-            document.getElementById('quiz-question').innerText = item.question;
-            const optionsContainer = document.getElementById('quiz-options');
-            optionsContainer.innerHTML = '';
-            document.getElementById('next-quiz-btn').style.display = 'none';
-
-            item.options.forEach(option => {
-                const button = document.createElement('button');
-                button.className = 'option-btn';
-                button.innerText = option;
-                button.onclick = () => window.checkAnswer(button, option, item.answer);
-                optionsContainer.appendChild(button);
-            });
-        }
-
-        window.checkAnswer = function(selectedButton, selectedOption, correctOption) {
-            const buttons = document.querySelectorAll('.option-btn');
-            buttons.forEach(btn => {
-                btn.disabled = true;
-                if (btn.innerText === correctOption) {
-                    btn.style.background = '#d1fae5';
-                    btn.style.borderColor = '#10b981';
-                }
-            });
-
-            if (selectedOption !== correctOption) {
-                selectedButton.style.background = '#fee2e2';
-                selectedButton.style.borderColor = '#ef4444';
-            }
-
-            document.getElementById('next-quiz-btn').style.display = 'block';
-        };
-
-        function updateProgressBar() {
-            if (activeDataset.length === 0) return;
-            const percentage = ((currentIndex + 1) / activeDataset.length) * 100;
-            document.getElementById('progress').style.width = `${percentage}%`;
-        }
-    </script>
-</body>
-</html>
+                    { question:
