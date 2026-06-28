@@ -7,10 +7,10 @@
     <style>
         :root {
             --primary: #ec4899; /* Vibrant Pink */
-            --primary-hover: #db2777; /* Darker Pink for hover states */
+            --primary-hover: #db2777; /* Darker Pink */
             --bg: #fdf2f8; /* Soft pastel pink background */
             --card-bg: #ffffff;
-            --text: #4c0519; /* Deep rose-tinted text */
+            --text: #4c0519; /* Deep rose text */
             --text-light: #9d174d; /* Medium rose text */
             --success: #10b981;
         }
@@ -38,7 +38,6 @@
             color: var(--primary);
             font-size: 2.5rem;
             margin-bottom: 10px;
-            text-shadow: 1px 1px 2px rgba(236, 72, 153, 0.1);
         }
 
         .container {
@@ -272,41 +271,82 @@
 
     <script>
         const masterDataset = [
+            // ================= BEGINNER QUESTIONS =================
             {
                 level: "beginner",
-                question: "Which planet is known as the Red Planet?",
-                answer: "Mars",
-                options: ["Venus", "Jupiter", "Mars", "Saturn"]
+                question: "How many colors are there in a rainbow?",
+                answer: "7",
+                options: ["5", "6", "7", "8"]
             },
             {
                 level: "beginner",
-                question: "What is the capital city of Japan?",
-                answer: "Tokyo",
-                options: ["Seoul", "Beijing", "Bangkok", "Tokyo"]
+                question: "What is the capital city of France?",
+                answer: "Paris",
+                options: ["London", "Rome", "Madrid", "Paris"]
+            },
+            {
+                level: "beginner",
+                question: "Which animal is known as the 'Ship of the Desert'?",
+                answer: "Camel",
+                options: ["Horse", "Camel", "Elephant", "Lion"]
+            },
+            {
+                level: "beginner",
+                question: "What gas do humans need to breathe in to survive?",
+                answer: "Oxygen",
+                options: ["Carbon Dioxide", "Nitrogen", "Hydrogen", "Oxygen"]
+            },
+
+            // ================= INTERMEDIATE QUESTIONS =================
+            {
+                level: "intermediate",
+                question: "Which element has the chemical symbol 'O' on the periodic table?",
+                answer: "Oxygen",
+                options: ["Gold", "Osmosis", "Oxygen", "Osmium"]
             },
             {
                 level: "intermediate",
-                question: "What is the primary function of DNA?",
-                answer: "To store long-term genetic information.",
-                options: ["To store long-term genetic information.", "To generate immediate cellular energy.", "To build cell walls directly.", "To destroy cellular waste."]
+                question: "In what year did World War II end?",
+                answer: "1945",
+                options: ["1918", "1939", "1945", "1950"]
             },
             {
                 level: "intermediate",
-                question: "What is the core meaning of the word 'Impeccable'?",
-                answer: "Faultless or flawless",
-                options: ["Slightly damaged", "Faultless or flawless", "Extremely loud", "Slow-moving"]
+                question: "What is the hardest natural substance on Earth?",
+                answer: "Diamond",
+                options: ["Gold", "Iron", "Diamond", "Quartz"]
+            },
+            {
+                level: "intermediate",
+                question: "Which organ in the human body filters blood?",
+                answer: "Kidney",
+                options: ["Heart", "Lungs", "Liver", "Kidney"]
+            },
+
+            // ================= ADVANCED QUESTIONS =================
+            {
+                level: "advanced",
+                question: "What is the time complexity of searching in a perfectly balanced Binary Search Tree (BST)?",
+                answer: "O(log n)",
+                options: ["O(1)", "O(n)", "O(log n)", "O(n log n)"]
             },
             {
                 level: "advanced",
-                question: "What is the primary mechanism of action for Enzyme Catalysis?",
-                answer: "Lowering the activation energy of a reaction.",
-                options: ["Increasing the temperature of the system.", "Lowering the activation energy of a reaction.", "Altering the overall equilibrium constant.", "Consuming the enzyme permanently."]
+                question: "What cosmic boundary marks the point of no return near a black hole?",
+                answer: "Event Horizon",
+                options: ["Accretion Disk", "Singularity", "Event Horizon", "Schwarzschild Radius"]
             },
             {
                 level: "advanced",
-                question: "Which philosophical school of thought is most closely associated with Jean-Paul Sartre?",
-                answer: "Existentialism",
-                options: ["Stoicism", "Existentialism", "Logical Positivism", "Nihilism"]
+                question: "Which economic indicator measures the total monetary value of all finished goods and services made within a country?",
+                answer: "Gross Domestic Product (GDP)",
+                options: ["Consumer Price Index (CPI)", "Gross Domestic Product (GDP)", "Inflation Rate", "Net National Product (NNP)"]
+            },
+            {
+                level: "advanced",
+                question: "What type of chemical bond involves the sharing of electron pairs between atoms?",
+                answer: "Covalent Bond",
+                options: ["Ionic Bond", "Covalent Bond", "Hydrogen Bond", "Metallic Bond"]
             }
         ];
 
@@ -375,6 +415,7 @@
             cardText.style.color = isFlipped ? 'var(--primary)' : 'var(--text)';
         }
 
+        // Fix logic to stay flipped on correct state change
         function flipCard() {
             isFlipped = !isFlipped;
             updateFlashcard();
