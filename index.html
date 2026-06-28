@@ -62,13 +62,27 @@
             margin-top: 25px;
         }
 
+        /* Grade Grid specifically */
+        .grade-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 25px;
+        }
+
+        @media (max-width: 480px) {
+            .grade-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
         .menu-btn {
             padding: 16px;
             background: #fff1f2;
             border: 2px solid #fce7f3;
             border-radius: 10px;
             cursor: pointer;
-            font-size: 1.1rem;
+            font-size: 1rem;
             font-weight: 600;
             transition: all 0.2s;
             color: var(--text);
@@ -154,6 +168,7 @@
             font-weight: bold;
             cursor: pointer;
             margin-bottom: 10px;
+            width: 100%;
         }
 
         .mic-btn:hover {
@@ -249,7 +264,6 @@
             transition: width 0.3s ease;
         }
 
-        /* Loading Spinner */
         .loading-text {
             font-size: 1.2rem;
             font-weight: bold;
@@ -275,11 +289,20 @@
         </div>
 
         <div id="level-screen" class="setup-screen hidden">
-            <h2>Select Your Level 🎯</h2>
-            <div class="menu-options">
-                <button class="menu-btn" onclick="startApp('easy')">🟢 Beginner</button>
-                <button class="menu-btn" onclick="startApp('medium')">🟡 Intermediate</button>
-                <button class="menu-btn" onclick="startApp('hard')">🔴 Advanced</button>
+            <h2>Select Your Grade 🎯</h2>
+            <div class="grade-grid">
+                <button class="menu-btn" onclick="startApp(1)">1st</button>
+                <button class="menu-btn" onclick="startApp(2)">2nd</button>
+                <button class="menu-btn" onclick="startApp(3)">3rd</button>
+                <button class="menu-btn" onclick="startApp(4)">4th</button>
+                <button class="menu-btn" onclick="startApp(5)">5th</button>
+                <button class="menu-btn" onclick="startApp(6)">6th</button>
+                <button class="menu-btn" onclick="startApp(7)">7th</button>
+                <button class="menu-btn" onclick="startApp(8)">8th</button>
+                <button class="menu-btn" onclick="startApp(9)">9th</button>
+                <button class="menu-btn" onclick="startApp(10)">10th</button>
+                <button class="menu-btn" onclick="startApp(11)">11th</button>
+                <button class="menu-btn" onclick="startApp(12)">12th</button>
             </div>
         </div>
 
@@ -303,7 +326,7 @@
                 </div>
                 
                 <div id="reading-voice-module" class="voice-section hidden">
-                    <button id="mic-btn" class="mic-btn" onclick="toggleListening()">🎤 Tap & Say the Sentence</button>
+                    <button id="mic-btn" class="mic-btn" onclick="toggleListening()">🎤 Tap & Say the Text</button>
                     <div id="feedback" class="feedback-text"></div>
                 </div>
 
@@ -333,7 +356,7 @@
         };
 
         let chosenSubject = '';
-        let chosenLevel = '';
+        let chosenDifficulty = '';
         let activeDataset = [];
         let currentIndex = 0;
         let isFlipped = false;
@@ -348,26 +371,32 @@
             document.getElementById('level-screen').classList.remove('hidden');
         }
 
-        // Fetch dynamic questions from Open Trivia DB API
-        async function startApp(level) {
-            chosenLevel = level;
+        // Fetch dynamic questions from Open Trivia DB API based on specific Grade
+        async function startApp(grade) {
+            // Map the specific 1-12 grade to the closest API difficulty
+            if (grade <= 5) {
+                chosenDifficulty = 'easy';
+            } else if (grade <= 8) {
+                chosenDifficulty = 'medium';
+            } else {
+                chosenDifficulty = 'hard';
+            }
+
             document.getElementById('level-screen').classList.add('hidden');
             document.getElementById('loading-screen').classList.remove('hidden');
 
             const categoryId = categories[chosenSubject];
-            const apiUrl = `https://opentdb.com/api.php?amount=5&category=${categoryId}&difficulty=${chosenLevel}&type=multiple`;
+            const apiUrl = `https://opentdb.com/api.php?amount=5&category=${categoryId}&difficulty=${chosenDifficulty}&type=multiple`;
 
             try {
                 const response = await fetch(apiUrl);
                 const data = await response.json();
 
                 if (data.response_code === 0 && data.results.length > 0) {
-                    // Process external data format into internal app format
                     activeDataset = data.results.map(item => {
                         const cleanQuestion = decodeHTML(item.question);
                         const cleanAnswer = decodeHTML(item.correct_answer);
                         
-                        // Merge choices and safely shuffle them around randomly
                         const choices = item.incorrect_answers.map(ans => decodeHTML(ans));
                         choices.push(cleanAnswer);
                         choices.sort(() => Math.random() - 0.5);
@@ -379,7 +408,6 @@
                         };
                     });
 
-                    // Hide loading and reveal main application layout
                     document.getElementById('loading-screen').classList.add('hidden');
                     document.getElementById('main-app').classList.remove('hidden');
                     
@@ -393,12 +421,12 @@
                     throw new Error("No trivia records found.");
                 }
             } catch (error) {
-                alert("⚠️ Trouble connecting to the online live question network. Reverting back to home screen.");
+                alert("⚠️ Trouble connecting to the online live question network. Let's try again!");
                 location.reload();
             }
         }
 
-        // Clean up text codes like &quot; or &#039; from API strings
+        // Clean up text codes like &quot; from API strings
         function decodeHTML(html) {
             const txt = document.createElement("textarea");
             txt.innerHTML = html;
@@ -430,7 +458,7 @@
                 currentMode === 'flashcards' ? updateFlashcard() : updateQuiz();
                 updateProgressBar();
             } else {
-                alert("🎉 Round completed! Heading back to choose a new custom layout.");
+                alert("🎉 Round completed! Heading back to choose a new subject or grade.");
                 location.reload();
             }
         }
@@ -474,8 +502,8 @@
                 recognition.interimResults = false;
 
                 recognition.onresult = function(event) {
-                    const spokenText = event.results[0][0].transcript.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"");
-                    const targetText = activeDataset[currentIndex].question.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"");
+                    const spokenText = event.results[0][0].transcript.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()"]/g,"");
+                    const targetText = activeDataset[currentIndex].question.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()"]/g,"");
                     
                     const feedbackDiv = document.getElementById('feedback');
                     
@@ -516,7 +544,7 @@
             isListening = false;
             const btn = document.getElementById('mic-btn');
             if(btn) {
-                btn.innerText = "🎤 Tap & Say the Sentence";
+                btn.innerText = "🎤 Tap & Say the Text";
                 btn.classList.remove('recording');
             }
         }
