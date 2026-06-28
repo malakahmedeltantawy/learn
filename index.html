@@ -565,85 +565,448 @@
                 ]
             },
             reading: {
-                1: {
-                    passage: "The cat is orange. The cat sits on the mat. The mat is blue. The cat likes to sleep. Suddenly, a small mouse runs by! The cat wakes up and watches the mouse, but she is too tired to chase it. She goes back to sleep.",
-                    questions: [
-                        { question: "What color is the cat?", correct_answer: "Orange", incorrect_answers: ["Blue", "Black", "White"] },
-                        { question: "Where does the cat sit?", correct_answer: "On the mat", incorrect_answers: ["On the bed", "On the chair", "On the floor"] },
-                        { question: "What does the cat like to do?", correct_answer: "Sleep", incorrect_answers: ["Run", "Eat", "Play"] },
-                        { question: "What animal runs by the cat?", correct_answer: "A mouse", incorrect_answers: ["A dog", "A bird", "A bug"] },
-                        { question: "Why does the cat NOT chase the mouse?", correct_answer: "She is too tired", incorrect_answers: ["She is scared", "She is too slow", "She doesn't see it"] }
-                    ]
-                },
-                2: {
-                    passage: "Tim has a red bicycle. He rides it to the park every day. His friend Sarah has a blue scooter. They like to race each other down the big hill. Yesterday, Sarah won the race because Tim's tire was a little flat. Today, Tim fixed his tire and is ready to win!",
-                    questions: [
-                        { question: "What does Tim ride to the park?", correct_answer: "A red bicycle", incorrect_answers: ["A blue scooter", "A skateboard", "A car"] },
-                        { question: "What color is Sarah's scooter?", correct_answer: "Blue", incorrect_answers: ["Red", "Green", "Yellow"] },
-                        { question: "What do Tim and Sarah like to do together?", correct_answer: "Race down the hill", incorrect_answers: ["Eat ice cream", "Read books", "Walk their dogs"] },
-                        { question: "Why did Sarah win the race yesterday?", correct_answer: "Tim's tire was flat", incorrect_answers: ["Sarah cheated", "Tim fell off", "Tim got lost"] },
-                        { question: "What did Tim do today?", correct_answer: "Fixed his tire", incorrect_answers: ["Bought a scooter", "Stayed home", "Walked to the park"] }
-                    ]
-                },
-                3: {
-                    passage: "Bees are very important insects. They fly from flower to flower to collect nectar. They use the nectar to make sweet honey inside their hive. Bees also help plants grow by spreading pollen. Without bees, many of the fruits and vegetables we love to eat would not be able to grow at all!",
-                    questions: [
-                        { question: "What do bees collect from flowers?", correct_answer: "Nectar", incorrect_answers: ["Honey", "Water", "Leaves"] },
-                        { question: "Where do bees make their honey?", correct_answer: "Inside their hive", incorrect_answers: ["Under the ground", "In the water", "On tree leaves"] },
-                        { question: "How do bees help plants?", correct_answer: "By spreading pollen", incorrect_answers: ["By eating their leaves", "By giving them water", "By blocking the sun"] },
-                        { question: "What would happen if we didn't have bees?", correct_answer: "Fruits and vegetables wouldn't grow", incorrect_answers: ["We would have too much honey", "Flowers would grow too tall", "There would be more bugs"] },
-                        { question: "What kind of food do bees make?", correct_answer: "Sweet honey", incorrect_answers: ["Sour candy", "Salty bread", "Spicy soup"] }
-                    ]
-                },
-                4: {
-                    passage: "The solar system has eight planets. The closest planet to the sun is Mercury, but the hottest planet is Venus because of its thick, trapping atmosphere. Earth is the third planet from the sun, and it is the only one known to have liquid water. Jupiter is the largest planet, so big that all the other planets could fit inside it!",
-                    questions: [
-                        { question: "Which planet is the hottest?", correct_answer: "Venus", incorrect_answers: ["Mercury", "Earth", "Mars"] },
-                        { question: "Which planet is closest to the sun?", correct_answer: "Mercury", incorrect_answers: ["Venus", "Earth", "Jupiter"] },
-                        { question: "What is special about Earth?", correct_answer: "It has liquid water", incorrect_answers: ["It is the biggest planet", "It is the hottest planet", "It has no moons"] },
-                        { question: "Why is Venus the hottest planet?", correct_answer: "It has a thick, trapping atmosphere", incorrect_answers: ["It is the closest to the sun", "It is made of fire", "It has a lot of volcanoes"] },
-                        { question: "Which planet is the largest?", correct_answer: "Jupiter", incorrect_answers: ["Saturn", "Earth", "Neptune"] }
-                    ]
-                },
-                5: {
-                    passage: "Thomas Edison was a famous inventor. While he did not invent the first lightbulb, he created the first practical and long-lasting electric lightbulb in 1879. He also invented the phonograph, which could record and play back sound. Edison believed in hard work, famously saying that genius is 'one percent inspiration and ninety-nine percent perspiration.'",
-                    questions: [
-                        { question: "What did Thomas Edison create in 1879?", correct_answer: "A practical, long-lasting lightbulb", incorrect_answers: ["The very first lightbulb", "The telephone", "The battery"] },
-                        { question: "Did Edison invent the very first lightbulb?", correct_answer: "No", incorrect_answers: ["Yes", "He invented the sun", "He only invented glass"] },
-                        { question: "What did the phonograph do?", correct_answer: "Record and play back sound", incorrect_answers: ["Take pictures", "Cook food", "Wash clothes"] },
-                        { question: "What did Edison say genius is?", correct_answer: "99% perspiration, 1% inspiration", incorrect_answers: ["100% smarts", "50% luck, 50% skill", "Only for inventors"] },
-                        { question: "What does 'perspiration' mean in Edison's quote?", correct_answer: "Hard work and sweating", incorrect_answers: ["Having a good idea", "Getting lucky", "Reading books"] }
-                    ]
-                },
-                6: {
-                    passage: "Photosynthesis is the process plants use to make food. They take in sunlight, water from the soil, and carbon dioxide from the air. Using a green pigment called chlorophyll, they turn these ingredients into glucose for energy and release oxygen back into the air. This process is crucial because it provides the base of the food chain and the oxygen that humans and animals need to breathe.",
-                    questions: [
-                        { question: "What do plants release during photosynthesis?", correct_answer: "Oxygen", incorrect_answers: ["Carbon Dioxide", "Sunlight", "Water"] },
-                        { question: "What is the green pigment in plants called?", correct_answer: "Chlorophyll", incorrect_answers: ["Glucose", "Melanin", "Carotene"] },
-                        { question: "What do plants use glucose for?", correct_answer: "Energy", incorrect_answers: ["To make water", "To block sunlight", "To grow roots only"] },
-                        { question: "Where do plants get the water they need?", correct_answer: "From the soil", incorrect_answers: ["From the air", "From the sun", "From the leaves"] },
-                        { question: "Why is photosynthesis crucial for humans?", correct_answer: "It provides the oxygen we breathe", incorrect_answers: ["It gives us green pigment", "It makes the sun shine", "It creates soil"] }
-                    ]
-                },
-                7: {
-                    passage: "Ancient Egypt was located along the Nile River in North Africa. The river flooded every year, leaving behind nutrient-rich soil that was perfect for farming. The Egyptians built massive pyramids as grand tombs for their pharaohs, whom they believed were gods on Earth. They also developed a complex system of writing using picture symbols known as hieroglyphics.",
-                    questions: [
-                        { question: "Why was the Nile River important to ancient Egyptians?", correct_answer: "It provided rich soil for farming", incorrect_answers: ["It was used to build pyramids", "It stopped invaders", "It was filled with gold"] },
-                        { question: "What were the pyramids used for?", correct_answer: "Tombs for pharaohs", incorrect_answers: ["Palaces for kings to live in", "Storage for food", "Temples for daily prayer"] },
-                        { question: "How did Egyptians view their pharaohs?", correct_answer: "As gods on Earth", incorrect_answers: ["As normal citizens", "As military generals only", "As elected leaders"] },
-                        { question: "What was the ancient Egyptian writing system called?", correct_answer: "Hieroglyphics", incorrect_answers: ["Cuneiform", "Alphabet", "Calligraphy"] },
-                        { question: "Where was Ancient Egypt located?", correct_answer: "North Africa", incorrect_answers: ["South America", "Eastern Europe", "Asia"] }
-                    ]
-                },
-                8: {
-                    passage: "The Industrial Revolution marked a major turning point in history. It transitioned societies from manual labor and farming to machine-based manufacturing. Starting in Great Britain in the 18th century, it led to the invention of the steam engine, the rise of factories, and rapid urbanization as people moved from the countryside into cities to find work.",
-                    questions: [
-                        { question: "Where did the Industrial Revolution begin?", correct_answer: "Great Britain", incorrect_answers: ["United States", "France", "Germany"] },
-                        { question: "What major invention was part of this revolution?", correct_answer: "The steam engine", incorrect_answers: ["The airplane", "The lightbulb", "The internet"] },
-                        { question: "What did society transition away from?", correct_answer: "Manual labor and farming", incorrect_answers: ["Machine manufacturing", "Trade and commerce", "City living"] },
-                        { question: "What does 'urbanization' mean in this context?", correct_answer: "People moving to cities", incorrect_answers: ["Farming becoming easier", "Building more steam engines", "People moving to farms"] },
-                        { question: "In what century did this revolution start?", correct_answer: "18th century", incorrect_answers: ["19th century", "20th century", "17th century"] }
-                    ]
-                },
-                9: {
-                    passage: "In literature, the theme is the underlying message or central idea that the author wants to convey to the reader. It is fundamentally different from the plot, which is simply the sequence of events or actions that make up the story. While a plot can usually
+                1: [
+                    {
+                        passage: "The cat is orange. The cat sits on the mat. The mat is blue. The cat likes to sleep. Suddenly, a small mouse runs by! The cat wakes up and watches the mouse, but she is too tired to chase it. She goes back to sleep.",
+                        questions: [
+                            { question: "What color is the cat?", correct_answer: "Orange", incorrect_answers: ["Blue", "Black", "White"] },
+                            { question: "Where does the cat sit?", correct_answer: "On the mat", incorrect_answers: ["On the bed", "On the chair", "On the floor"] }
+                        ]
+                    },
+                    {
+                        passage: "Ben has a big red ball. He plays with it in the yard. His dog Buster barks at the ball. Ben throws the ball, and Buster runs fast to catch it in his mouth. They play until the sun goes down.",
+                        questions: [
+                            { question: "What does Ben have?", correct_answer: "A big red ball", incorrect_answers: ["A small blue ball", "A kite", "A toy car"] },
+                            { question: "Who is Buster?", correct_answer: "Ben's dog", incorrect_answers: ["Ben's brother", "Ben's cat", "Ben's friend"] }
+                        ]
+                    }
+                ],
+                2: [
+                    {
+                        passage: "Tim has a red bicycle. He rides it to the park every day. His friend Sarah has a blue scooter. They like to race each other down the big hill. Yesterday, Sarah won the race because Tim's tire was a little flat. Today, Tim fixed his tire and is ready to win!",
+                        questions: [
+                            { question: "What does Tim ride to the park?", correct_answer: "A red bicycle", incorrect_answers: ["A blue scooter", "A skateboard", "A car"] },
+                            { question: "Why did Sarah win yesterday?", correct_answer: "Tim's tire was flat", incorrect_answers: ["Sarah cheated", "Tim fell off", "Tim got lost"] }
+                        ]
+                    },
+                    {
+                        passage: "Lily loves baking cookies with her grandma. They mix flour, sugar, and butter in a large bowl. Lily's favorite part is adding the chocolate chips. While the cookies bake in the oven, the whole house smells like sweet chocolate and warm vanilla.",
+                        questions: [
+                            { question: "What is Lily baking?", correct_answer: "Cookies", incorrect_answers: ["Cake", "Bread", "Pie"] },
+                            { question: "What is Lily's favorite part?", correct_answer: "Adding chocolate chips", incorrect_answers: ["Eating the dough", "Mixing the flour", "Washing the bowl"] }
+                        ]
+                    }
+                ],
+                3: [
+                    {
+                        passage: "Bees are very important insects. They fly from flower to flower to collect nectar. They use the nectar to make sweet honey inside their hive. Bees also help plants grow by spreading pollen. Without bees, many of the fruits and vegetables we love to eat would not be able to grow at all!",
+                        questions: [
+                            { question: "What do bees collect from flowers?", correct_answer: "Nectar", incorrect_answers: ["Honey", "Water", "Leaves"] },
+                            { question: "How do bees help plants?", correct_answer: "By spreading pollen", incorrect_answers: ["By eating their leaves", "By giving them water", "By blocking the sun"] }
+                        ]
+                    },
+                    {
+                        passage: "Dinosaurs lived on Earth millions of years ago, long before there were any people. Some dinosaurs, like the T-Rex, were fierce meat-eaters with sharp teeth. Others, like the Brachiosaurus, had very long necks to reach leaves high up in the trees. Today, we learn about them by studying their fossilized bones.",
+                        questions: [
+                            { question: "When did dinosaurs live?", correct_answer: "Millions of years ago", incorrect_answers: ["A few days ago", "In the year 1800", "They are alive today"] },
+                            { question: "How do we learn about dinosaurs today?", correct_answer: "Studying fossilized bones", incorrect_answers: ["Watching them in the zoo", "Reading their diaries", "Talking to them"] }
+                        ]
+                    }
+                ],
+                4: [
+                    {
+                        passage: "The solar system has eight planets. The closest planet to the sun is Mercury, but the hottest planet is Venus because of its thick, trapping atmosphere. Earth is the third planet from the sun, and it is the only one known to have liquid water. Jupiter is the largest planet, so big that all the other planets could fit inside it!",
+                        questions: [
+                            { question: "Which planet is the hottest?", correct_answer: "Venus", incorrect_answers: ["Mercury", "Earth", "Mars"] },
+                            { question: "Why is Venus the hottest planet?", correct_answer: "It has a thick, trapping atmosphere", incorrect_answers: ["It is the closest to the sun", "It is made of fire", "It has a lot of volcanoes"] }
+                        ]
+                    },
+                    {
+                        passage: "The water cycle is a continuous process. Heat from the sun causes water in oceans to evaporate and turn into vapor. This vapor rises and cools to form clouds, a process called condensation. Finally, the water falls back to the ground as rain or snow, known as precipitation.",
+                        questions: [
+                            { question: "What causes water to evaporate?", correct_answer: "Heat from the sun", incorrect_answers: ["Wind blowing", "Fish swimming", "The moon's gravity"] },
+                            { question: "What is it called when water falls as rain?", correct_answer: "Precipitation", incorrect_answers: ["Condensation", "Evaporation", "Collection"] }
+                        ]
+                    }
+                ],
+                5: [
+                    {
+                        passage: "Thomas Edison was a famous inventor. While he did not invent the first lightbulb, he created the first practical and long-lasting electric lightbulb in 1879. He also invented the phonograph, which could record and play back sound. Edison believed in hard work, famously saying that genius is 'one percent inspiration and ninety-nine percent perspiration.'",
+                        questions: [
+                            { question: "What did Edison say genius is?", correct_answer: "99% perspiration, 1% inspiration", incorrect_answers: ["100% smarts", "50% luck, 50% skill", "Only for inventors"] },
+                            { question: "What did the phonograph do?", correct_answer: "Record and play back sound", incorrect_answers: ["Take pictures", "Cook food", "Wash clothes"] }
+                        ]
+                    },
+                    {
+                        passage: "The American Revolution was a historic conflict where the original 13 colonies declared independence from Great Britain. Frustrated by heavy taxes without having representation in the British Parliament, the colonists famously rallied behind the cry 'No taxation without representation.' This led to the drafting of the Declaration of Independence in 1776.",
+                        questions: [
+                            { question: "Why were the colonists frustrated with Great Britain?", correct_answer: "Heavy taxes without representation", incorrect_answers: ["They wanted a new king", "They disliked British tea only", "Britain refused to trade with them"] },
+                            { question: "In what year was the Declaration of Independence drafted?", correct_answer: "1776", incorrect_answers: ["1492", "1812", "1789"] }
+                        ]
+                    }
+                ],
+                6: [
+                    {
+                        passage: "Photosynthesis is the process plants use to make food. They take in sunlight, water from the soil, and carbon dioxide from the air. Using a green pigment called chlorophyll, they turn these ingredients into glucose for energy and release oxygen back into the air. This process provides the base of the food chain.",
+                        questions: [
+                            { question: "What do plants release during photosynthesis?", correct_answer: "Oxygen", incorrect_answers: ["Carbon Dioxide", "Sunlight", "Water"] },
+                            { question: "What is the green pigment in plants called?", correct_answer: "Chlorophyll", incorrect_answers: ["Glucose", "Melanin", "Carotene"] }
+                        ]
+                    },
+                    {
+                        passage: "Earthquakes occur when huge masses of rock below the Earth's surface, called tectonic plates, suddenly slip past one another. The boundary where they meet is called a fault line. The sudden release of energy creates seismic waves that shake the ground, which can cause severe damage to buildings and roads.",
+                        questions: [
+                            { question: "What is the boundary where tectonic plates meet called?", correct_answer: "A fault line", incorrect_answers: ["A trench", "A volcano", "A epicenter"] },
+                            { question: "What creates the shaking during an earthquake?", correct_answer: "Seismic waves", incorrect_answers: ["Ocean tides", "Thunder", "Wind currents"] }
+                        ]
+                    }
+                ],
+                7: [
+                    {
+                        passage: "Ancient Egypt was located along the Nile River in North Africa. The river flooded every year, leaving behind nutrient-rich soil that was perfect for farming. The Egyptians built massive pyramids as grand tombs for their pharaohs, whom they believed were gods on Earth. They also developed a complex system of writing using picture symbols known as hieroglyphics.",
+                        questions: [
+                            { question: "Why was the Nile River important to ancient Egyptians?", correct_answer: "It provided rich soil for farming", incorrect_answers: ["It was used to build pyramids", "It stopped invaders", "It was filled with gold"] },
+                            { question: "What was the ancient Egyptian writing system called?", correct_answer: "Hieroglyphics", incorrect_answers: ["Cuneiform", "Alphabet", "Calligraphy"] }
+                        ]
+                    },
+                    {
+                        passage: "In biology, symbiosis refers to a close and long-term biological interaction between two different biological organisms. This relationship can be mutualistic, where both species benefit, such as bees pollinating flowers. It can also be parasitic, where one benefits at the expense of the other, like a tick living on a dog.",
+                        questions: [
+                            { question: "What is a mutualistic relationship?", correct_answer: "Both species benefit", incorrect_answers: ["One benefits, one is harmed", "Neither species benefits", "One species dies"] },
+                            { question: "A tick living on a dog is an example of what kind of relationship?", correct_answer: "Parasitic", incorrect_answers: ["Mutualistic", "Commensalism", "Predatory"] }
+                        ]
+                    }
+                ],
+                8: [
+                    {
+                        passage: "The Industrial Revolution marked a major turning point in history. It transitioned societies from manual labor and farming to machine-based manufacturing. Starting in Great Britain in the 18th century, it led to the invention of the steam engine, the rise of factories, and rapid urbanization as people moved from the countryside into cities to find work.",
+                        questions: [
+                            { question: "Where did the Industrial Revolution begin?", correct_answer: "Great Britain", incorrect_answers: ["United States", "France", "Germany"] },
+                            { question: "What does 'urbanization' mean in this context?", correct_answer: "People moving to cities", incorrect_answers: ["Farming becoming easier", "Building more steam engines", "People moving to farms"] }
+                        ]
+                    },
+                    {
+                        passage: "The Constitution of the United States was written in 1787 to replace the Articles of Confederation, which had proven too weak to unite the country. The Constitution established a strong federal government while still respecting state sovereignty, famously opening with the powerful words 'We the People' to signify that power derives from the citizens.",
+                        questions: [
+                            { question: "Why was the Constitution written?", correct_answer: "To replace the weak Articles of Confederation", incorrect_answers: ["To declare independence from Britain", "To end the Civil War", "To create a monarchy"] },
+                            { question: "What do the opening words 'We the People' signify?", correct_answer: "Power derives from the citizens", incorrect_answers: ["The government holds all power", "Only wealthy people have rights", "The states have no power"] }
+                        ]
+                    }
+                ],
+                9: [
+                    {
+                        passage: "In literature, the theme is the underlying message or central idea that the author wants to convey to the reader. It is fundamentally different from the plot, which is simply the sequence of events or actions that make up the story. While a plot can usually be described in a short summary of what happened, a theme is often a broader statement about human nature, life, or the world.",
+                        questions: [
+                            { question: "How does a theme differ from a plot?", correct_answer: "The theme is the message; the plot is the events", incorrect_answers: ["The plot is the message; the theme is the characters", "They are exactly the same thing", "The theme is the setting of the story"] },
+                            { question: "What is a theme usually about?", correct_answer: "Human nature, life, or the world", incorrect_answers: ["What happened in chapter one", "The physical description of a character", "The historical accuracy of the text"] }
+                        ]
+                    },
+                    {
+                        passage: "During the Cold War, the United States and the Soviet Union engaged in a tense geopolitical rivalry that never escalated into direct military conflict between the two superpowers. Instead, they competed through indirect proxy wars, espionage, the Space Race, and the massive buildup of nuclear arsenals under the doctrine of Mutually Assured Destruction.",
+                        questions: [
+                            { question: "Why was it called the 'Cold War'?", correct_answer: "There was no direct military conflict between the superpowers", incorrect_answers: ["It was fought entirely in winter", "It took place in the Arctic", "They stopped speaking to each other completely"] },
+                            { question: "What doctrine prevented them from using nuclear weapons?", correct_answer: "Mutually Assured Destruction", incorrect_answers: ["The Geneva Convention", "The Space Race", "The Treaty of Versailles"] }
+                        ]
+                    }
+                ],
+                10: [
+                    {
+                        passage: "An ecosystem consists of all the living organisms in a given area interacting with their physical environment, such as weather, earth, sun, soil, and climate. These complex systems maintain stability and balance through energy flows and continuous nutrient cycles. If one species is removed from this delicate web, it can cause a ripple effect that drastically alters or damages the entire ecosystem.",
+                        questions: [
+                            { question: "What maintains the balance within an ecosystem?", correct_answer: "Energy flows and nutrient cycles", incorrect_answers: ["Only the living organisms", "Only the physical environment", "Human intervention"] },
+                            { question: "What can happen if a single species is removed?", correct_answer: "It can drastically damage the whole ecosystem", incorrect_answers: ["Nothing will happen", "The ecosystem will get stronger", "New animals will magically appear"] }
+                        ]
+                    },
+                    {
+                        passage: "William Shakespeare, often regarded as the greatest writer in the English language, wrote highly influential plays in the late 16th and early 17th centuries. His works are categorized mainly into tragedies, such as 'Hamlet' and 'Macbeth', comedies like 'A Midsummer Night's Dream', and historical plays. His deep understanding of human psychology makes his work timeless.",
+                        questions: [
+                            { question: "Into what three main categories are Shakespeare's plays divided?", correct_answer: "Tragedies, comedies, and histories", incorrect_answers: ["Romances, horrors, and sci-fi", "Sonnets, poems, and prose", "Musicals, dramas, and thrillers"] },
+                            { question: "Why is Shakespeare's work considered timeless?", correct_answer: "His deep understanding of human psychology", incorrect_answers: ["Because the English language hasn't changed", "Because he invented the printing press", "Because his plays are very short"] }
+                        ]
+                    }
+                ],
+                11: [
+                    {
+                        passage: "The United States Constitution establishes the supreme framework of the federal government. To prevent a monopoly of power, it divides authority into three branches through a system of checks and balances: the Legislative branch makes laws, the Executive branch enforces laws, and the Judicial branch interprets laws to ensure they align with the Constitution.",
+                        questions: [
+                            { question: "Which branch of government is responsible for enforcing laws?", correct_answer: "Executive", incorrect_answers: ["Legislative", "Judicial", "Constitutional"] },
+                            { question: "What system keeps the branches from overpowering each other?", correct_answer: "Checks and balances", incorrect_answers: ["The electoral college", "The Bill of Rights", "State mandates"] }
+                        ]
+                    },
+                    {
+                        passage: "Macroeconomics is a branch of economics that studies how an overall economy behaves. It analyzes wide phenomena such as inflation, price levels, rate of economic growth, national income, and gross domestic product (GDP). Unlike microeconomics, which focuses on individual actors, macroeconomics attempts to understand the aggregate metrics and how governmental policies affect them.",
+                        questions: [
+                            { question: "What does macroeconomics primarily focus on?", correct_answer: "The behavior of the overall economy", incorrect_answers: ["Individual consumer choices", "How a single business prices its products", "Local market competition"] },
+                            { question: "Which of the following is a macroeconomic metric?", correct_answer: "Gross Domestic Product (GDP)", incorrect_answers: ["A family's budget", "The price of an apple", "A single worker's salary"] }
+                        ]
+                    }
+                ],
+                12: [
+                    {
+                        passage: "Quantum mechanics is a fundamental theory in physics that describes nature at the smallest scales of energy levels of atoms and subatomic particles. Unlike classical physics, which allows continuous values, quantum mechanics dictates that energy, momentum, and other quantities are restricted to discrete, distinct values (quanta). This theory also introduces the concept of wave-particle duality.",
+                        questions: [
+                            { question: "What is a key difference between classical physics and quantum mechanics?", correct_answer: "Quantum mechanics restricts energy to discrete values", incorrect_answers: ["Classical physics only applies to atoms", "Quantum mechanics deals with massive planets", "Classical physics is newer"] },
+                            { question: "What does 'wave-particle duality' mean?", correct_answer: "Particles can act like both waves and solid particles", incorrect_answers: ["Waves are not real", "Particles are always solid", "Energy and matter are unrelated"] }
+                        ]
+                    },
+                    {
+                        passage: "Existentialism is a 20th-century philosophical movement centered on the belief that humans are fundamentally free and responsible for their own actions in a universe lacking inherent meaning. Philosophers like Jean-Paul Sartre argued that 'existence precedes essence,' meaning that individuals first exist in the world, and then must define their own purpose and identity through their choices.",
+                        questions: [
+                            { question: "What does the phrase 'existence precedes essence' imply?", correct_answer: "Individuals must define their own purpose after they exist", incorrect_answers: ["We are born with a pre-determined destiny", "The universe has a strict inherent meaning", "Human lives are entirely controlled by fate"] },
+                            { question: "What is the central belief of existentialism regarding human responsibility?", correct_answer: "Humans are fundamentally free and responsible for their own actions", incorrect_answers: ["Society is responsible for individual actions", "Responsibility is an illusion", "Actions don't matter because the universe lacks meaning"] }
+                        ]
+                    }
+                ]
+            }
+        };
+
+        let chosenSubject = '';
+        let activeDataset = [];
+        let currentIndex = 0;
+        let isFlipped = false;
+        let currentMode = 'flashcards';
+        let recognition;
+        let isListening = false;
+
+        // Force bind functions to global window object so buttons always click!
+        window.selectSubject = function(subject) {
+            chosenSubject = subject;
+            document.getElementById('subject-screen').classList.add('hidden');
+            document.getElementById('level-screen').classList.remove('hidden');
+        };
+
+        window.startApp = function(grade) {
+            document.getElementById('level-screen').classList.add('hidden');
+            
+            activeDataset = []; // Clear the array first
+            
+            if (chosenSubject === 'reading') {
+                const passagesForGrade = curriculumDatabase.reading[grade];
+                
+                // We loop through ALL passages for this grade and pull all questions
+                passagesForGrade.forEach(lesson => {
+                    lesson.questions.forEach(q => {
+                        const choices = [...q.incorrect_answers];
+                        choices.push(q.correct_answer);
+                        choices.sort(() => Math.random() - 0.5); // Shuffle choices
+                        
+                        activeDataset.push({
+                            passage: lesson.passage,
+                            question: q.question,
+                            answer: q.correct_answer,
+                            options: choices
+                        });
+                    });
+                });
+                
+                // Shuffle the entire deck so passages and questions jump around randomly!
+                activeDataset.sort(() => Math.random() - 0.5);
+                
+                document.getElementById('reading-passage').classList.remove('hidden');
+            } else {
+                document.getElementById('reading-passage').classList.add('hidden');
+                const rawQuestions = curriculumDatabase[chosenSubject][grade];
+                
+                rawQuestions.forEach(q => {
+                    const choices = [...q.incorrect_answers];
+                    choices.push(q.correct_answer);
+                    choices.sort(() => Math.random() - 0.5);
+                    activeDataset.push({
+                        question: q.question,
+                        answer: q.correct_answer,
+                        options: choices
+                    });
+                });
+                
+                // Shuffle math/science too!
+                activeDataset.sort(() => Math.random() - 0.5);
+            }
+
+            document.getElementById('main-app').classList.remove('hidden');
+            currentIndex = 0;
+            isFlipped = false;
+            setupSpeechRecognition(); 
+            updateFlashcard();
+            updateQuiz();
+            updateProgressBar();
+        };
+
+        window.switchMode = function(mode) {
+            currentMode = mode;
+            
+            document.getElementById('tab-flashcards').classList.remove('active');
+            document.getElementById('tab-quiz').classList.remove('active');
+            
+            if (mode === 'flashcards') {
+                document.getElementById('tab-flashcards').classList.add('active');
+                document.getElementById('flashcard-view').classList.remove('hidden');
+                document.getElementById('quiz-view').classList.add('hidden');
+                isFlipped = false;
+                updateFlashcard();
+            } else {
+                document.getElementById('tab-quiz').classList.add('active');
+                document.getElementById('flashcard-view').classList.add('hidden');
+                document.getElementById('quiz-view').classList.remove('hidden');
+                updateQuiz();
+            }
+            updateProgressBar();
+        };
+
+        window.nextItem = function() {
+            if (currentIndex < activeDataset.length - 1) {
+                currentIndex++;
+                isFlipped = false;
+                currentMode === 'flashcards' ? updateFlashcard() : updateQuiz();
+                updateProgressBar();
+            } else {
+                alert("🎉 You finished this grade's curriculum! Heading back to the main menu.");
+                location.reload();
+            }
+        };
+
+        window.prevItem = function() {
+            if (currentIndex > 0) {
+                currentIndex--;
+                isFlipped = false;
+                updateFlashcard();
+                updateProgressBar();
+            }
+        };
+
+        function updateFlashcard() {
+            if (activeDataset.length === 0) return;
+            const item = activeDataset[currentIndex];
+            const cardText = document.getElementById('card-text');
+            const voiceModule = document.getElementById('reading-voice-module');
+            
+            // If it's reading, update the passage text box dynamically for the current card
+            if (chosenSubject === 'reading') {
+                document.getElementById('passage-text').innerText = item.passage;
+                voiceModule.classList.remove('hidden');
+            } else {
+                voiceModule.classList.add('hidden');
+            }
+
+            cardText.innerText = isFlipped ? item.answer : item.question;
+            cardText.style.color = isFlipped ? 'var(--primary)' : 'var(--text)';
+            document.getElementById('feedback').innerText = '';
+        }
+
+        window.flipCard = function() {
+            isFlipped = !isFlipped;
+            updateFlashcard();
+        };
+
+        function setupSpeechRecognition() {
+            window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            if (window.SpeechRecognition) {
+                recognition = new SpeechRecognition();
+                recognition.continuous = false;
+                recognition.lang = 'en-US';
+                recognition.interimResults = false;
+
+                recognition.onresult = function(event) {
+                    const spokenText = event.results[0][0].transcript.toLowerCase().replace(/[^\w\s]/gi, '');
+                    const currentCardText = document.getElementById('card-text').innerText.toLowerCase().replace(/[^\w\s]/gi, '');
+                    
+                    const feedbackDiv = document.getElementById('feedback');
+                    
+                    if (spokenText.trim() === currentCardText.trim()) {
+                        feedbackDiv.innerText = "✨ Perfect! You read it exactly right!";
+                        feedbackDiv.style.color = "var(--success)";
+                    } else {
+                        feedbackDiv.innerText = `❌ Not quite! You said: "${event.results[0][0].transcript}". Let me help you out.`;
+                        feedbackDiv.style.color = "var(--error)";
+                        speakCorrectWay(document.getElementById('card-text').innerText);
+                    }
+                    stopListeningMode();
+                };
+
+                recognition.onerror = function() { stopListeningMode(); };
+                recognition.onend = function() { stopListeningMode(); };
+            }
+        }
+
+        window.toggleListening = function() {
+            if (!recognition) {
+                alert("Speech recognition isn't supported on this browser. Try opening the app in Google Chrome or Safari!");
+                return;
+            }
+            if (isListening) {
+                recognition.stop();
+                stopListeningMode();
+            } else {
+                isListening = true;
+                const btn = document.getElementById('mic-btn');
+                btn.innerText = "🎙️ Listening... Read the flashcard aloud!";
+                btn.classList.add('recording');
+                recognition.start();
+            }
+        };
+
+        function stopListeningMode() {
+            isListening = false;
+            const btn = document.getElementById('mic-btn');
+            if(btn) {
+                btn.innerText = "🎤 Tap & Read Flashcard";
+                btn.classList.remove('recording');
+            }
+        }
+
+        function speakCorrectWay(text) {
+            if ('speechSynthesis' in window) {
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'en-US';
+                utterance.rate = 0.9;
+                window.speechSynthesis.speak(utterance);
+            }
+        }
+
+        function updateQuiz() {
+            if (activeDataset.length === 0) return;
+            const item = activeDataset[currentIndex];
+            
+            if (chosenSubject === 'reading') {
+                document.getElementById('passage-text').innerText = item.passage;
+            }
+            
+            document.getElementById('quiz-question').innerText = item.question;
+            const optionsContainer = document.getElementById('quiz-options');
+            optionsContainer.innerHTML = '';
+            document.getElementById('next-quiz-btn').style.display = 'none';
+
+            item.options.forEach(option => {
+                const button = document.createElement('button');
+                button.className = 'option-btn';
+                button.innerText = option;
+                button.onclick = () => window.checkAnswer(button, option, item.answer);
+                optionsContainer.appendChild(button);
+            });
+        }
+
+        window.checkAnswer = function(selectedButton, selectedOption, correctOption) {
+            const buttons = document.querySelectorAll('.option-btn');
+            buttons.forEach(btn => {
+                btn.disabled = true;
+                if (btn.innerText === correctOption) {
+                    btn.style.background = '#d1fae5';
+                    btn.style.borderColor = '#10b981';
+                }
+            });
+
+            if (selectedOption !== correctOption) {
+                selectedButton.style.background = '#fee2e2';
+                selectedButton.style.borderColor = '#ef4444';
+            }
+
+            document.getElementById('next-quiz-btn').style.display = 'block';
+        };
+
+        function updateProgressBar() {
+            if (activeDataset.length === 0) return;
+            const percentage = ((currentIndex + 1) / activeDataset.length) * 100;
+            document.getElementById('progress').style.width = `${percentage}%`;
+        }
+    </script>
+</body>
+</html>
