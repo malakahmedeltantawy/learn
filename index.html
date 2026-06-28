@@ -324,8 +324,8 @@
 
         <div id="main-app" class="hidden">
             <div class="tabs">
-                <button class="tab-btn active" onclick="window.switchMode('flashcards')">Flashcards</button>
-                <button class="tab-btn" onclick="window.switchMode('quiz')">Quiz</button>
+                <button id="tab-flashcards" class="tab-btn active" onclick="window.switchMode('flashcards')">Flashcards</button>
+                <button id="tab-quiz" class="tab-btn" onclick="window.switchMode('quiz')">Quiz</button>
             </div>
 
             <div class="progress-container">
@@ -366,7 +366,6 @@
     </div>
 
     <script>
-        // MASSIVELY EXPANDED Curriculum Database
         const curriculumDatabase = {
             math: {
                 1: [
@@ -492,4 +491,110 @@
                     { question: "What type of galaxy is the Milky Way?", correct_answer: "Spiral", incorrect_answers: ["Elliptical", "Irregular", "Circular"] }
                 ],
                 9: [
-                    { question:
+                    { question: "What carries genetic information in living things?", correct_answer: "DNA", incorrect_answers: ["RNA", "Proteins", "Lipids"] },
+                    { question: "What is the process of cell division that results in two identical daughter cells?", correct_answer: "Mitosis", incorrect_answers: ["Meiosis", "Osmosis", "Photosynthesis"] },
+                    { question: "Who proposed the theory of evolution by natural selection?", correct_answer: "Charles Darwin", incorrect_answers: ["Isaac Newton", "Albert Einstein", "Gregor Mendel"] },
+                    { question: "What is the primary product of cellular respiration?", correct_answer: "ATP (Energy)", incorrect_answers: ["Glucose", "Oxygen", "Light"] }
+                ],
+                10: [
+                    { question: "What type of bond involves sharing electrons?", correct_answer: "Covalent bond", incorrect_answers: ["Ionic bond", "Metallic bond", "Hydrogen bond"] },
+                    { question: "What is the pH of pure water?", correct_answer: "7", incorrect_answers: ["0", "14", "5"] },
+                    { question: "Avogadro's number is approximately?", correct_answer: "6.022 x 10^23", incorrect_answers: ["3.14 x 10^15", "2.99 x 10^8", "9.81 x 10^5"] },
+                    { question: "What gas law relates pressure and volume?", correct_answer: "Boyle's Law", incorrect_answers: ["Charles's Law", "Ideal Gas Law", "Dalton's Law"] }
+                ],
+                11: [
+                    { question: "What is the atomic number of Hydrogen?", correct_answer: "1", incorrect_answers: ["2", "10", "14"] },
+                    { question: "What is the formula for Force?", correct_answer: "F = ma", incorrect_answers: ["F = mv", "F = mc^2", "F = mgh"] },
+                    { question: "What unit is used to measure electrical current?", correct_answer: "Amperes (Amps)", incorrect_answers: ["Volts", "Ohms", "Watts"] },
+                    { question: "Energy of motion is called?", correct_answer: "Kinetic Energy", incorrect_answers: ["Potential Energy", "Thermal Energy", "Static Energy"] }
+                ],
+                12: [
+                    { question: "What is the speed of light in a vacuum?", correct_answer: "300,000 km/s", incorrect_answers: ["150,000 km/s", "1,000 km/s", "3,000,000 km/s"] },
+                    { question: "In organic chemistry, what element must a molecule contain to be considered 'organic'?", correct_answer: "Carbon", incorrect_answers: ["Oxygen", "Nitrogen", "Hydrogen"] },
+                    { question: "Which part of the brain controls balance and coordination?", correct_answer: "Cerebellum", incorrect_answers: ["Cerebrum", "Brain stem", "Frontal lobe"] },
+                    { question: "What particle carries the electromagnetic force?", correct_answer: "Photon", incorrect_answers: ["Electron", "Proton", "Neutron"] }
+                ]
+            },
+            reading: {
+                1: {
+                    passage: "The cat is orange. The cat sits on the mat. The mat is blue. The cat likes to sleep.",
+                    questions: [
+                        { question: "What color is the cat?", correct_answer: "Orange", incorrect_answers: ["Blue", "Black", "White"] },
+                        { question: "Where does the cat sit?", correct_answer: "On the mat", incorrect_answers: ["On the bed", "On the chair", "On the floor"] },
+                        { question: "What does the cat like to do?", correct_answer: "Sleep", incorrect_answers: ["Run", "Eat", "Play"] }
+                    ]
+                },
+                2: {
+                    passage: "Tim has a red bicycle. He rides it to the park every day. His friend Sarah has a blue scooter. They like to race each other down the big hill.",
+                    questions: [
+                        { question: "What does Tim ride to the park?", correct_answer: "A red bicycle", incorrect_answers: ["A blue scooter", "A skateboard", "A car"] },
+                        { question: "What color is Sarah's scooter?", correct_answer: "Blue", incorrect_answers: ["Red", "Green", "Yellow"] },
+                        { question: "What do Tim and Sarah like to do together?", correct_answer: "Race down the hill", incorrect_answers: ["Eat ice cream", "Read books", "Walk their dogs"] }
+                    ]
+                },
+                3: {
+                    passage: "Bees are very important insects. They fly from flower to flower to collect nectar. They use the nectar to make sweet honey inside their hive. Bees also help plants grow by spreading pollen.",
+                    questions: [
+                        { question: "What do bees collect from flowers?", correct_answer: "Nectar", incorrect_answers: ["Honey", "Water", "Leaves"] },
+                        { question: "Where do bees make their honey?", correct_answer: "Inside their hive", incorrect_answers: ["Under the ground", "In the water", "On tree leaves"] },
+                        { question: "How do bees help plants?", correct_answer: "By spreading pollen", incorrect_answers: ["By eating their leaves", "By giving them water", "By blocking the sun"] }
+                    ]
+                },
+                4: {
+                    passage: "The solar system has eight planets. The closest planet to the sun is Mercury, but the hottest planet is Venus. Earth is the third planet from the sun, and it is the only one known to have liquid water.",
+                    questions: [
+                        { question: "Which planet is the hottest?", correct_answer: "Venus", incorrect_answers: ["Mercury", "Earth", "Mars"] },
+                        { question: "Which planet is closest to the sun?", correct_answer: "Mercury", incorrect_answers: ["Venus", "Earth", "Jupiter"] },
+                        { question: "What is special about Earth?", correct_answer: "It has liquid water", incorrect_answers: ["It is the biggest planet", "It is the hottest planet", "It has no moons"] }
+                    ]
+                },
+                5: {
+                    passage: "Thomas Edison was a famous inventor. While he did not invent the first lightbulb, he created the first practical and long-lasting electric lightbulb in 1879. He also invented the phonograph, which could record and play back sound.",
+                    questions: [
+                        { question: "What did Thomas Edison create in 1879?", correct_answer: "A practical, long-lasting lightbulb", incorrect_answers: ["The very first lightbulb", "The telephone", "The battery"] },
+                        { question: "Did Edison invent the very first lightbulb?", correct_answer: "No", incorrect_answers: ["Yes", "He invented the sun", "He only invented glass"] },
+                        { question: "What did the phonograph do?", correct_answer: "Record and play back sound", incorrect_answers: ["Take pictures", "Cook food", "Wash clothes"] }
+                    ]
+                },
+                6: {
+                    passage: "Photosynthesis is the process plants use to make food. They take in sunlight, water, and carbon dioxide from the air. Using a green pigment called chlorophyll, they turn these ingredients into glucose for energy and release oxygen back into the air.",
+                    questions: [
+                        { question: "What do plants release during photosynthesis?", correct_answer: "Oxygen", incorrect_answers: ["Carbon Dioxide", "Sunlight", "Water"] },
+                        { question: "What is the green pigment in plants called?", correct_answer: "Chlorophyll", incorrect_answers: ["Glucose", "Melanin", "Carotene"] },
+                        { question: "What do plants use glucose for?", correct_answer: "Energy", incorrect_answers: ["To make water", "To block sunlight", "To grow roots only"] }
+                    ]
+                },
+                7: {
+                    passage: "Ancient Egypt was located along the Nile River in North Africa. The river flooded every year, leaving behind nutrient-rich soil that was perfect for farming. The Egyptians built massive pyramids as grand tombs for their pharaohs, whom they believed were gods on Earth.",
+                    questions: [
+                        { question: "Why was the Nile River important to ancient Egyptians?", correct_answer: "It provided rich soil for farming", incorrect_answers: ["It was used to build pyramids", "It stopped invaders", "It was filled with gold"] },
+                        { question: "What were the pyramids used for?", correct_answer: "Tombs for pharaohs", incorrect_answers: ["Palaces for kings to live in", "Storage for food", "Temples for daily prayer"] },
+                        { question: "How did Egyptians view their pharaohs?", correct_answer: "As gods on Earth", incorrect_answers: ["As normal citizens", "As military generals only", "As elected leaders"] }
+                    ]
+                },
+                8: {
+                    passage: "The Industrial Revolution marked a major turning point in history. It transitioned societies from manual labor and farming to machine-based manufacturing. Starting in Great Britain in the 18th century, it led to the invention of the steam engine and the rise of factories.",
+                    questions: [
+                        { question: "Where did the Industrial Revolution begin?", correct_answer: "Great Britain", incorrect_answers: ["United States", "France", "Germany"] },
+                        { question: "What major invention was part of this revolution?", correct_answer: "The steam engine", incorrect_answers: ["The airplane", "The lightbulb", "The internet"] },
+                        { question: "What did society transition away from?", correct_answer: "Manual labor and farming", incorrect_answers: ["Machine manufacturing", "Trade and commerce", "City living"] }
+                    ]
+                },
+                9: {
+                    passage: "In literature, the theme is the underlying message or central idea that the author wants to convey to the reader. It is fundamentally different from the plot, which is simply the sequence of events or actions that make up the story.",
+                    questions: [
+                        { question: "How does a theme differ from a plot?", correct_answer: "The theme is the message; the plot is the events", incorrect_answers: ["The plot is the message; the theme is the characters", "They are exactly the same thing", "The theme is the setting of the story"] },
+                        { question: "What is a plot?", correct_answer: "The sequence of events in a story", incorrect_answers: ["The author's hidden message", "The main character's name", "The genre of the book"] },
+                        { question: "Who decides the theme of a story?", correct_answer: "The author", incorrect_answers: ["The publisher", "The main character", "The setting"] }
+                    ]
+                },
+                10: {
+                    passage: "An ecosystem consists of all the living organisms in a given area interacting with their physical environment, such as weather, earth, sun, soil, and climate. These complex systems maintain stability and balance through energy flows and continuous nutrient cycles.",
+                    questions: [
+                        { question: "What maintains the balance within an ecosystem?", correct_answer: "Energy flows and nutrient cycles", incorrect_answers: ["Only the living organisms", "Only the physical environment", "Human intervention"] },
+                        { question: "What does an ecosystem include?", correct_answer: "Living organisms and the physical environment", incorrect_answers: ["Only animals", "Only plants and weather", "Only non-living things"] },
+                        { question: "Is weather part of the physical environment?", correct_answer: "Yes", incorrect_answers: ["No", "Only in forests", "Only in the ocean"] }
+                    ]
+                },
+                11: {
+                    passage: "The United States Constitution establishes the supreme framework of the federal government. To prevent a monopoly of power,
