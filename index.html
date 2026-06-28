@@ -45,6 +45,40 @@
             margin: 0 auto;
         }
 
+        /* Setup Screen Styles */
+        .setup-screen {
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .level-options {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .level-btn {
+            padding: 16px;
+            background: #f1f5f9;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: all 0.2s;
+            color: var(--text);
+        }
+
+        .level-btn:hover {
+            border-color: var(--primary);
+            background: #eef2ff;
+            transform: translateY(-2px);
+        }
+
         /* Tabs Navigation */
         .tabs {
             display: flex;
@@ -74,7 +108,7 @@
             background: var(--card-bg);
             padding: 30px;
             border-radius: 16px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
             min-height: 300px;
             display: flex;
             flex-direction: column;
@@ -91,8 +125,7 @@
         .flashcard {
             width: 100%;
             cursor: pointer;
-            perspective: 1000px;
-            height: 180px;
+            min-height: 180px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -188,66 +221,108 @@
     </header>
 
     <div class="container">
-        <div class="tabs">
-            <button class="tab-btn active" onclick="switchMode('flashcards')">Flashcards</button>
-            <button class="tab-btn" onclick="switchMode('quiz')">Quiz</button>
-        </div>
-
-        <div class="progress-container">
-            <div id="progress" class="progress-bar"></div>
-        </div>
-
-        <div id="flashcard-view" class="app-card">
-            <div class="flashcard" onclick="flipCard()">
-                <div id="card-text" class="flashcard-content">Loading...</div>
-            </div>
-            <p style="color: var(--text-light); font-size: 0.85rem;">Click card to flip</p>
-            <div class="controls">
-                <button class="btn btn-secondary" onclick="prevItem()">Previous</button>
-                <button class="btn btn-primary" onclick="nextItem()">Next Card</button>
+        <div id="setup-screen" class="setup-screen">
+            <h2>Welcome! 👋</h2>
+            <p style="color: var(--text-light); margin-top: 5px;">Select your current learning level to begin:</p>
+            <div class="level-options">
+                <button class="level-btn" onclick="startApp('beginner')">🟢 Beginner</button>
+                <button class="level-btn" onclick="startApp('intermediate')">🟡 Intermediate</button>
+                <button class="level-btn" onclick="startApp('advanced')">🔴 Advanced</button>
             </div>
         </div>
 
-        <div id="quiz-view" class="app-card hidden">
-            <h3 id="quiz-question" style="font-size: 1.3rem; margin-bottom: 15px;">Loading Question...</h3>
-            <div id="quiz-options" class="quiz-options"></div>
-            <div class="controls">
-                <button class="btn btn-primary" id="next-quiz-btn" onclick="nextItem()" style="display: none;">Next Question</button>
+        <div id="main-app" class="hidden">
+            <div class="tabs">
+                <button class="tab-btn active" onclick="switchMode('flashcards')">Flashcards</button>
+                <button class="tab-btn" onclick="switchMode('quiz')">Quiz</button>
+            </div>
+
+            <div class="progress-container">
+                <div id="progress" class="progress-bar"></div>
+            </div>
+
+            <div id="flashcard-view" class="app-card">
+                <div class="flashcard" onclick="flipCard()">
+                    <div id="card-text" class="flashcard-content">Loading...</div>
+                </div>
+                <p style="color: var(--text-light); font-size: 0.85rem;">Click card to flip</p>
+                <div class="controls">
+                    <button class="btn btn-secondary" onclick="prevItem()">Previous</button>
+                    <button class="btn btn-primary" onclick="nextItem()">Next Card</button>
+                </div>
+            </div>
+
+            <div id="quiz-view" class="app-card hidden">
+                <h3 id="quiz-question" style="font-size: 1.3rem; margin-bottom: 15px;">Loading Question...</h3>
+                <div id="quiz-options" class="quiz-options"></div>
+                <div class="controls">
+                    <button class="btn btn-primary" id="next-quiz-btn" onclick="nextItem()" style="display: none;">Next Question</button>
+                </div>
             </div>
         </div>
     </div>
 
     <script>
-        // Sample Study Dataset
-        const dataset = [
+        // Comprehensive Dataset tagged by level
+        const masterDataset = [
+            // Beginner Questions
             {
-                question: "What is the primary function of DNA?",
-                answer: "To store long-term genetic information.",
-                options: ["To store long-term genetic information.", "To generate immediate cellular energy.", "To build cell walls directly.", "To destroy cellular waste."]
-            },
-            {
+                level: "beginner",
                 question: "Which planet is known as the Red Planet?",
                 answer: "Mars",
                 options: ["Venus", "Jupiter", "Mars", "Saturn"]
             },
             {
+                level: "beginner",
                 question: "What is the capital city of Japan?",
                 answer: "Tokyo",
                 options: ["Seoul", "Beijing", "Bangkok", "Tokyo"]
             },
+            // Intermediate Questions
             {
+                level: "intermediate",
+                question: "What is the primary function of DNA?",
+                answer: "To store long-term genetic information.",
+                options: ["To store long-term genetic information.", "To generate immediate cellular energy.", "To build cell walls directly.", "To destroy cellular waste."]
+            },
+            {
+                level: "intermediate",
                 question: "What is the core meaning of the word 'Impeccable'?",
                 answer: "Faultless or flawless",
                 options: ["Slightly damaged", "Faultless or flawless", "Extremely loud", "Slow-moving"]
+            },
+            // Advanced Questions
+            {
+                level: "advanced",
+                question: "What is the primary mechanism of action for Enzyme Catalysis?",
+                answer: "Lowering the activation energy of a reaction.",
+                options: ["Increasing the temperature of the system.", "Lowering the activation energy of a reaction.", "Altering the overall equilibrium constant.", "Consuming the enzyme permanently."]
+            },
+            {
+                level: "advanced",
+                question: "Which philosophical school of thought is most closely associated with Jean-Paul Sartre?",
+                answer: "Existentialism",
+                options: ["Stoicism", "Existentialism", "Logical Positivism", "Nihilism"]
             }
         ];
 
+        let activeDataset = [];
         let currentIndex = 0;
         let isFlipped = false;
         let currentMode = 'flashcards';
 
-        // Initialize App
-        function initApp() {
+        // Handles choice of level and launches the app
+        function startApp(selectedLevel) {
+            // Filter the master list based on chosen level
+            activeDataset = masterDataset.filter(item => item.level === selectedLevel);
+
+            // Hide onboarding screen and show the app
+            document.getElementById('setup-screen').classList.add('hidden');
+            document.getElementById('main-app').classList.remove('hidden');
+
+            // Initialize app state
+            currentIndex = 0;
+            isFlipped = false;
             updateFlashcard();
             updateQuiz();
             updateProgressBar();
@@ -274,13 +349,13 @@
 
         // Navigation
         function nextItem() {
-            if (currentIndex < dataset.length - 1) {
+            if (currentIndex < activeDataset.length - 1) {
                 currentIndex++;
                 isFlipped = false;
                 currentMode === 'flashcards' ? updateFlashcard() : updateQuiz();
                 updateProgressBar();
             } else {
-                alert("🎉 You've reached the end of the deck! Resetting to the beginning.");
+                alert("🎉 You've reached the end of this level's deck! Resetting to the beginning.");
                 currentIndex = 0;
                 isFlipped = false;
                 currentMode === 'flashcards' ? updateFlashcard() : updateQuiz();
@@ -299,8 +374,9 @@
 
         // Flashcard Logic
         function updateFlashcard() {
+            if (activeDataset.length === 0) return;
             const cardText = document.getElementById('card-text');
-            cardText.innerText = isFlipped ? dataset[currentIndex].answer : dataset[currentIndex].question;
+            cardText.innerText = isFlipped ? activeDataset[currentIndex].answer : activeDataset[currentIndex].question;
             cardText.style.color = isFlipped ? 'var(--primary)' : 'var(--text)';
         }
 
@@ -311,7 +387,8 @@
 
         // Quiz Logic
         function updateQuiz() {
-            const item = dataset[currentIndex];
+            if (activeDataset.length === 0) return;
+            const item = activeDataset[currentIndex];
             document.getElementById('quiz-question').innerText = item.question;
             const optionsContainer = document.getElementById('quiz-options');
             optionsContainer.innerHTML = '';
@@ -329,7 +406,7 @@
         function checkAnswer(selectedButton, selectedOption, correctOption) {
             const buttons = document.querySelectorAll('.option-btn');
             buttons.forEach(btn => {
-                btn.disabled = true; // Disable all buttons after choice
+                btn.disabled = true;
                 if (btn.innerText === correctOption) {
                     btn.style.background = '#d1fae5';
                     btn.style.borderColor = 'var(--success)';
@@ -346,12 +423,10 @@
 
         // Progress Bar Logic
         function updateProgressBar() {
-            const percentage = ((currentIndex + 1) / dataset.length) * 100;
+            if (activeDataset.length === 0) return;
+            const percentage = ((currentIndex + 1) / activeDataset.length) * 100;
             document.getElementById('progress').style.width = `${percentage}%`;
         }
-
-        // Run on load
-        window.onload = initApp;
     </script>
 </body>
 </html>
