@@ -6,13 +6,14 @@
     <title>EduSpark - Learning App</title>
     <style>
         :root {
-            --primary: #ec4899; /* Vibrant Pink */
-            --primary-hover: #db2777; /* Darker Pink */
-            --bg: #fdf2f8; /* Soft pastel pink background */
+            --primary: #ec4899;
+            --primary-hover: #db2777;
+            --bg: #fdf2f8;
             --card-bg: #ffffff;
-            --text: #4c0519; /* Deep rose text */
-            --text-light: #9d174d; /* Medium rose text */
+            --text: #4c0519;
+            --text-light: #9d174d;
             --success: #10b981;
+            --error: #ef4444;
         }
 
         * {
@@ -45,7 +46,6 @@
             margin: 0 auto;
         }
 
-        /* Setup Screen Styles */
         .setup-screen {
             background: var(--card-bg);
             padding: 40px;
@@ -55,14 +55,14 @@
             border: 1px solid #fbcfe8;
         }
 
-        .level-options {
+        .menu-options {
             display: flex;
             flex-direction: column;
             gap: 15px;
             margin-top: 25px;
         }
 
-        .level-btn {
+        .menu-btn {
             padding: 16px;
             background: #fff1f2;
             border: 2px solid #fce7f3;
@@ -74,13 +74,12 @@
             color: var(--text);
         }
 
-        .level-btn:hover {
+        .menu-btn:hover {
             border-color: var(--primary);
             background: #fce7f3;
             transform: translateY(-2px);
         }
 
-        /* Tabs Navigation */
         .tabs {
             display: flex;
             gap: 10px;
@@ -104,13 +103,12 @@
             color: white;
         }
 
-        /* Card Styles */
         .app-card {
             background: var(--card-bg);
             padding: 30px;
             border-radius: 16px;
             box-shadow: 0 4px 15px -3px rgba(236, 72, 153, 0.1);
-            min-height: 300px;
+            min-height: 320px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -123,11 +121,10 @@
             display: none !important;
         }
 
-        /* Flashcard Specific */
         .flashcard {
             width: 100%;
             cursor: pointer;
-            min-height: 180px;
+            min-height: 140px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -139,7 +136,47 @@
             padding: 20px;
         }
 
-        /* Quiz Specific */
+        /* Voice Section UI */
+        .voice-section {
+            width: 100%;
+            margin-top: 15px;
+            padding: 15px;
+            background: #fff1f2;
+            border-radius: 10px;
+            border: 1px dashed var(--primary);
+        }
+
+        .mic-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+
+        .mic-btn:hover {
+            background: var(--primary-hover);
+        }
+
+        .mic-btn.recording {
+            background: var(--error);
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        .feedback-text {
+            font-weight: 600;
+            margin-top: 8px;
+        }
+
         .quiz-options {
             width: 100%;
             display: flex;
@@ -166,7 +203,6 @@
             background: #fce7f3;
         }
 
-        /* Global Controls */
         .controls {
             display: flex;
             gap: 15px;
@@ -198,11 +234,6 @@
             color: var(--text-light);
         }
 
-        .btn-secondary:hover {
-            background: #fbcfe8;
-        }
-
-        /* Progress Bar */
         .progress-container {
             width: 100%;
             background: #fce7f3;
@@ -228,13 +259,21 @@
     </header>
 
     <div class="container">
-        <div id="setup-screen" class="setup-screen">
-            <h2>Welcome! 👋</h2>
-            <p style="color: var(--text-light); margin-top: 5px;">Select your current learning level to begin:</p>
-            <div class="level-options">
-                <button class="level-btn" onclick="startApp('beginner')">🟢 Beginner</button>
-                <button class="level-btn" onclick="startApp('intermediate')">🟡 Intermediate</button>
-                <button class="level-btn" onclick="startApp('advanced')">🔴 Advanced</button>
+        <div id="subject-screen" class="setup-screen">
+            <h2>Choose a Subject 📚</h2>
+            <div class="menu-options">
+                <button class="menu-btn" onclick="selectSubject('math')">🔢 Math</button>
+                <button class="menu-btn" onclick="selectSubject('reading')">📖 Reading</button>
+                <button class="menu-btn" onclick="selectSubject('science')">🔬 Science</button>
+            </div>
+        </div>
+
+        <div id="level-screen" class="setup-screen hidden">
+            <h2>Select Your Level 🎯</h2>
+            <div class="menu-options">
+                <button class="menu-btn" onclick="startApp('beginner')">🟢 Beginner</button>
+                <button class="menu-btn" onclick="startApp('intermediate')">🟡 Intermediate</button>
+                <button class="menu-btn" onclick="startApp('advanced')">🔴 Advanced</button>
             </div>
         </div>
 
@@ -252,7 +291,13 @@
                 <div class="flashcard" onclick="flipCard()">
                     <div id="card-text" class="flashcard-content">Loading...</div>
                 </div>
-                <p style="color: var(--text-light); font-size: 0.85rem;">Click card to flip</p>
+                
+                <div id="reading-voice-module" class="voice-section hidden">
+                    <button id="mic-btn" class="mic-btn" onclick="toggleListening()">🎤 Tap & Say the Sentence</button>
+                    <div id="feedback" class="feedback-text"></div>
+                </div>
+
+                <p style="color: var(--text-light); font-size: 0.85rem; margin-top: 10px;">Click card to flip</p>
                 <div class="controls">
                     <button class="btn btn-secondary" onclick="prevItem()">Previous</button>
                     <button class="btn btn-primary" onclick="nextItem()">Next Card</button>
@@ -270,100 +315,64 @@
     </div>
 
     <script>
-        const masterDataset = [
-            // ================= BEGINNER QUESTIONS =================
-            {
-                level: "beginner",
-                question: "How many colors are there in a rainbow?",
-                answer: "7",
-                options: ["5", "6", "7", "8"]
-            },
-            {
-                level: "beginner",
-                question: "What is the capital city of France?",
-                answer: "Paris",
-                options: ["London", "Rome", "Madrid", "Paris"]
-            },
-            {
-                level: "beginner",
-                question: "Which animal is known as the 'Ship of the Desert'?",
-                answer: "Camel",
-                options: ["Horse", "Camel", "Elephant", "Lion"]
-            },
-            {
-                level: "beginner",
-                question: "What gas do humans need to breathe in to survive?",
-                answer: "Oxygen",
-                options: ["Carbon Dioxide", "Nitrogen", "Hydrogen", "Oxygen"]
-            },
+        // Structured Multi-Subject & Multi-Level Dataset
+        const masterDataset = {
+            math: [
+                { level: "beginner", question: "What is 5 + 3?", answer: "8", options: ["6", "7", "8", "9"] },
+                { level: "beginner", question: "What is 10 - 4?", answer: "6", options: ["4", "5", "6", "7"] },
+                { level: "intermediate", question: "What is 12 x 11?", answer: "132", options: ["122", "132", "142", "152"] },
+                { level: "intermediate", question: "What is 144 ÷ 12?", answer: "12", options: ["10", "11", "12", "14"] },
+                { level: "advanced", question: "What is the square root of 225?", answer: "15", options: ["13", "14", "15", "25"] }
+            ],
+            reading: [
+                { level: "beginner", question: "The cat sat on the mat.", answer: "The cat sat on the mat.", options: ["The cat sat on the mat.", "A dog ran away.", "The mat was blue.", "The cat was big."] },
+                { level: "beginner", question: "The sun is hot.", answer: "The sun is hot.", options: ["The moon is bright.", "The sun is hot.", "It is raining outside.", "The sky is cold."] },
+                { level: "intermediate", question: "The brave astronaut explored the distant planet.", answer: "The brave astronaut explored the distant planet.", options: ["The rocket crashed down.", "The brave astronaut explored the distant planet.", "Stars are beautiful tonight.", "A scientist worked late."] },
+                { level: "advanced", question: "Environmental preservation requires global cooperation.", answer: "Environmental preservation requires global cooperation.", options: ["Global cooperation is rare.", "Preservation requires local energy.", "Environmental preservation requires global cooperation.", "Governments rule the worlds."] }
+            ],
+            science: [
+                { level: "beginner", question: "What plant part absorbs water from the soil?", answer: "Roots", options: ["Leaves", "Flowers", "Roots", "Stems"] },
+                { level: "intermediate", question: "What state of matter has a definite volume but no definite shape?", answer: "Liquid", options: ["Solid", "Liquid", "Gas", "Plasma"] },
+                { level: "advanced", question: "What is the speed of light approximately?", answer: "300,000 km/s", options: ["150,000 km/s", "300,000 km/s", "1,000,000 km/s", "500,000 km/s"] }
+            ]
+        };
 
-            // ================= INTERMEDIATE QUESTIONS =================
-            {
-                level: "intermediate",
-                question: "Which element has the chemical symbol 'O' on the periodic table?",
-                answer: "Oxygen",
-                options: ["Gold", "Osmosis", "Oxygen", "Osmium"]
-            },
-            {
-                level: "intermediate",
-                question: "In what year did World War II end?",
-                answer: "1945",
-                options: ["1918", "1939", "1945", "1950"]
-            },
-            {
-                level: "intermediate",
-                question: "What is the hardest natural substance on Earth?",
-                answer: "Diamond",
-                options: ["Gold", "Iron", "Diamond", "Quartz"]
-            },
-            {
-                level: "intermediate",
-                question: "Which organ in the human body filters blood?",
-                answer: "Kidney",
-                options: ["Heart", "Lungs", "Liver", "Kidney"]
-            },
-
-            // ================= ADVANCED QUESTIONS =================
-            {
-                level: "advanced",
-                question: "What is the time complexity of searching in a perfectly balanced Binary Search Tree (BST)?",
-                answer: "O(log n)",
-                options: ["O(1)", "O(n)", "O(log n)", "O(n log n)"]
-            },
-            {
-                level: "advanced",
-                question: "What cosmic boundary marks the point of no return near a black hole?",
-                answer: "Event Horizon",
-                options: ["Accretion Disk", "Singularity", "Event Horizon", "Schwarzschild Radius"]
-            },
-            {
-                level: "advanced",
-                question: "Which economic indicator measures the total monetary value of all finished goods and services made within a country?",
-                answer: "Gross Domestic Product (GDP)",
-                options: ["Consumer Price Index (CPI)", "Gross Domestic Product (GDP)", "Inflation Rate", "Net National Product (NNP)"]
-            },
-            {
-                level: "advanced",
-                question: "What type of chemical bond involves the sharing of electron pairs between atoms?",
-                answer: "Covalent Bond",
-                options: ["Ionic Bond", "Covalent Bond", "Hydrogen Bond", "Metallic Bond"]
-            }
-        ];
-
+        let chosenSubject = '';
+        let chosenLevel = '';
         let activeDataset = [];
         let currentIndex = 0;
         let isFlipped = false;
         let currentMode = 'flashcards';
+        
+        // Speech API tools
+        let recognition;
+        let isListening = false;
 
-        function startApp(selectedLevel) {
-            activeDataset = masterDataset.filter(item => item.level === selectedLevel);
-            document.getElementById('setup-screen').classList.add('hidden');
+        function selectSubject(subject) {
+            chosenSubject = subject;
+            document.getElementById('subject-screen').classList.add('hidden');
+            document.getElementById('level-screen').classList.remove('hidden');
+        }
+
+        function startApp(level) {
+            chosenLevel = level;
+            activeDataset = masterDataset[chosenSubject].filter(item => item.level === chosenLevel);
+
+            if (activeDataset.length === 0) {
+                alert("No items found for this configuration! Resetting.");
+                location.reload();
+                return;
+            }
+
+            document.getElementById('level-screen').classList.add('hidden');
             document.getElementById('main-app').classList.remove('hidden');
+            
             currentIndex = 0;
             isFlipped = false;
             updateFlashcard();
             updateQuiz();
             updateProgressBar();
+            setupSpeechRecognition();
         }
 
         function switchMode(mode) {
@@ -391,11 +400,8 @@
                 currentMode === 'flashcards' ? updateFlashcard() : updateQuiz();
                 updateProgressBar();
             } else {
-                alert("🎉 You've reached the end of this level's deck! Resetting to the beginning.");
-                currentIndex = 0;
-                isFlipped = false;
-                currentMode === 'flashcards' ? updateFlashcard() : updateQuiz();
-                updateProgressBar();
+                alert("🎉 Core deck completed! Returning to Main Menu.");
+                location.reload();
             }
         }
 
@@ -411,16 +417,98 @@
         function updateFlashcard() {
             if (activeDataset.length === 0) return;
             const cardText = document.getElementById('card-text');
+            const voiceModule = document.getElementById('reading-voice-module');
+            
             cardText.innerText = isFlipped ? activeDataset[currentIndex].answer : activeDataset[currentIndex].question;
             cardText.style.color = isFlipped ? 'var(--primary)' : 'var(--text)';
+            document.getElementById('feedback').innerText = '';
+
+            // Only show mic options if user picks reading and the card shows the question/target sentence
+            if (chosenSubject === 'reading' && !isFlipped) {
+                voiceModule.classList.remove('hidden');
+            } else {
+                voiceModule.classList.add('hidden');
+            }
         }
 
-        // Fix logic to stay flipped on correct state change
         function flipCard() {
             isFlipped = !isFlipped;
             updateFlashcard();
         }
 
+        // --- SPEECH RECOGNITION & SPEAK BACK LOGIC ---
+        function setupSpeechRecognition() {
+            window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            if (window.SpeechRecognition) {
+                recognition = new SpeechRecognition();
+                recognition.continuous = false;
+                recognition.lang = 'en-US';
+                recognition.interimResults = false;
+
+                recognition.onresult = function(event) {
+                    const spokenText = event.results[0][0].transcript.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"");
+                    const targetText = activeDataset[currentIndex].question.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"");
+                    
+                    const feedbackDiv = document.getElementById('feedback');
+                    
+                    if (spokenText.trim() === targetText.trim()) {
+                        feedbackDiv.innerText = "✨ Perfect! You read it correctly!";
+                        feedbackDiv.style.color = "var(--success)";
+                    } else {
+                        feedbackDiv.innerText = `❌ Not quite! You said "${event.results[0][0].transcript}". Let me help you out.`;
+                        feedbackDiv.style.color = "var(--error)";
+                        // Read out the proper pronunciation automatically
+                        speakCorrectWay(activeDataset[currentIndex].question);
+                    }
+                    stopListeningMode();
+                };
+
+                recognition.onerror = function() {
+                    stopListeningMode();
+                };
+
+                recognition.onend = function() {
+                    stopListeningMode();
+                };
+            }
+        }
+
+        function toggleListening() {
+            if (!recognition) {
+                alert("Speech recognition isn't supported on this browser. Try Chrome or Safari.");
+                return;
+            }
+            if (isListening) {
+                recognition.stop();
+                stopListeningMode();
+            } else {
+                isListening = true;
+                const btn = document.getElementById('mic-btn');
+                btn.innerText = "🎙️ Listening... Speak Now";
+                btn.classList.add('recording');
+                recognition.start();
+            }
+        }
+
+        function stopListeningMode() {
+            isListening = false;
+            const btn = document.getElementById('mic-btn');
+            if(btn) {
+                btn.innerText = "🎤 Tap & Say the Sentence";
+                btn.classList.remove('recording');
+            }
+        }
+
+        function speakCorrectWay(text) {
+            if ('speechSynthesis' in window) {
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'en-US';
+                utterance.rate = 0.9; // Spoken slightly slower to facilitate clear pronunciation
+                window.speechSynthesis.speak(utterance);
+            }
+        }
+
+        // Quiz Logic
         function updateQuiz() {
             if (activeDataset.length === 0) return;
             const item = activeDataset[currentIndex];
