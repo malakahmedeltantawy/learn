@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EduSpark - Live Learning App</title>
+    <title>EduSpark - Grade Level Learning</title>
     <style>
         :root {
             --primary: #ec4899;
@@ -116,7 +116,6 @@
             color: white;
         }
 
-        /* Reading Passage Box */
         .passage-box {
             background: #fff1f2;
             border-left: 5px solid var(--primary);
@@ -172,7 +171,6 @@
             padding: 20px;
         }
 
-        /* Voice Section restored */
         .voice-section {
             width: 100%;
             margin-top: 10px;
@@ -287,19 +285,13 @@
             width: 0%;
             transition: width 0.3s ease;
         }
-
-        .loading-text {
-            font-size: 1.2rem;
-            font-weight: bold;
-            color: var(--primary);
-        }
     </style>
 </head>
 <body>
 
     <header>
-        <h1>EduSpark Live</h1>
-        <p>Fresh online study questions every single run</p>
+        <h1>EduSpark</h1>
+        <p>Curriculum tailored specifically to your grade!</p>
     </header>
 
     <div class="container">
@@ -328,10 +320,6 @@
                 <button class="menu-btn" onclick="window.startApp(11)">11th</button>
                 <button class="menu-btn" onclick="window.startApp(12)">12th</button>
             </div>
-        </div>
-
-        <div id="loading-screen" class="setup-screen hidden">
-            <p class="loading-text">📡 Setting up your lesson...</p>
         </div>
 
         <div id="main-app" class="hidden">
@@ -378,48 +366,149 @@
     </div>
 
     <script>
-        // API Configuration Mapping
-        const categories = {
-            math: 19,     
-            science: 17   
-        };
-
-        // Custom Reading Comprehension Database
-        const readingDatabase = {
-            easy: [
-                {
-                    passage: "Sam has a small dog named Pip. Pip is brown with big white spots. Every morning, Sam and Pip walk to the park. Pip loves to chase red balls and run in the tall green grass.",
-                    questions: [
-                        { question: "What color is Pip?", correct_answer: "Brown with white spots", incorrect_answers: ["All black", "Golden yellow", "White with black spots"] },
-                        { question: "Where do Sam and Pip go in the morning?", correct_answer: "The park", incorrect_answers: ["The beach", "The store", "The school"] },
-                        { question: "What does Pip love to chase?", correct_answer: "Red balls", incorrect_answers: ["Cats", "Cars", "Blue frisbees"] }
-                    ]
+        // Massive Custom Database for EVERY Grade Level!
+        const curriculumDatabase = {
+            math: {
+                1: [
+                    { question: "What is 2 + 3?", correct_answer: "5", incorrect_answers: ["4", "6", "3"] },
+                    { question: "What is 5 - 1?", correct_answer: "4", incorrect_answers: ["3", "5", "2"] }
+                ],
+                2: [
+                    { question: "What is 12 + 8?", correct_answer: "20", incorrect_answers: ["18", "22", "19"] },
+                    { question: "What is 15 - 7?", correct_answer: "8", incorrect_answers: ["7", "9", "6"] }
+                ],
+                3: [
+                    { question: "What is 4 x 3?", correct_answer: "12", incorrect_answers: ["7", "16", "14"] },
+                    { question: "What is 20 ÷ 5?", correct_answer: "4", incorrect_answers: ["5", "3", "6"] }
+                ],
+                4: [
+                    { question: "What is 8 x 7?", correct_answer: "56", incorrect_answers: ["54", "64", "48"] },
+                    { question: "What is 1/2 of 20?", correct_answer: "10", incorrect_answers: ["5", "15", "12"] }
+                ],
+                5: [
+                    { question: "What is 1.5 + 2.5?", correct_answer: "4.0", incorrect_answers: ["3.5", "4.5", "3.0"] },
+                    { question: "What is the perimeter of a 4x4 square?", correct_answer: "16", incorrect_answers: ["8", "12", "20"] }
+                ],
+                6: [
+                    { question: "What is 20% of 50?", correct_answer: "10", incorrect_answers: ["5", "15", "20"] },
+                    { question: "Simplify the ratio 4:8", correct_answer: "1:2", incorrect_answers: ["2:4", "1:3", "1:4"] }
+                ],
+                7: [
+                    { question: "If x - 5 = 10, what is x?", correct_answer: "15", incorrect_answers: ["5", "10", "20"] },
+                    { question: "What is the area of a circle with radius 3? (Use π ≈ 3.14)", correct_answer: "28.26", incorrect_answers: ["9.42", "18.84", "12.56"] }
+                ],
+                8: [
+                    { question: "Solve for y: 2y + 4 = 12", correct_answer: "4", incorrect_answers: ["3", "5", "6"] },
+                    { question: "What is 3 squared (3²)?", correct_answer: "9", incorrect_answers: ["6", "12", "27"] }
+                ],
+                9: [
+                    { question: "What is the slope of the line y = 3x + 2?", correct_answer: "3", incorrect_answers: ["2", "x", "-3"] },
+                    { question: "Find the hypotenuse of a right triangle with sides 3 and 4.", correct_answer: "5", incorrect_answers: ["6", "7", "25"] }
+                ],
+                10: [
+                    { question: "What are the roots of x² - 4 = 0?", correct_answer: "2 and -2", incorrect_answers: ["2 only", "4 and -4", "0 and 4"] },
+                    { question: "In a right triangle, what is Sine?", correct_answer: "Opposite / Hypotenuse", incorrect_answers: ["Adjacent / Hypotenuse", "Opposite / Adjacent", "Hypotenuse / Opposite"] }
+                ],
+                11: [
+                    { question: "What is the value of log₁₀(100)?", correct_answer: "2", incorrect_answers: ["10", "1", "100"] },
+                    { question: "What is the formula for the quadratic equation?", correct_answer: "-b ± √(b² - 4ac) / 2a", incorrect_answers: ["a² + b² = c²", "y = mx + b", "A = πr²"] }
+                ],
+                12: [
+                    { question: "What is the derivative of x²?", correct_answer: "2x", incorrect_answers: ["x", "2", "x²"] },
+                    { question: "What is the integral of 2x dx?", correct_answer: "x² + C", incorrect_answers: ["2x² + C", "x + C", "2 + C"] }
+                ]
+            },
+            science: {
+                1: [
+                    { question: "Which body part do you use to see?", correct_answer: "Eyes", incorrect_answers: ["Ears", "Nose", "Mouth"] }
+                ],
+                2: [
+                    { question: "What do plants need to grow?", correct_answer: "Water and sunlight", incorrect_answers: ["Milk and bread", "Soda and ice", "Rocks and sand"] }
+                ],
+                3: [
+                    { question: "What planet do we live on?", correct_answer: "Earth", incorrect_answers: ["Mars", "Venus", "Jupiter"] }
+                ],
+                4: [
+                    { question: "Which is a liquid?", correct_answer: "Water", incorrect_answers: ["Ice", "Steam", "Wood"] }
+                ],
+                5: [
+                    { question: "What is the center of our solar system?", correct_answer: "The Sun", incorrect_answers: ["Earth", "The Moon", "Jupiter"] }
+                ],
+                6: [
+                    { question: "What gas do plants breathe in?", correct_answer: "Carbon Dioxide", incorrect_answers: ["Oxygen", "Nitrogen", "Helium"] }
+                ],
+                7: [
+                    { question: "What is the powerhouse of the cell?", correct_answer: "Mitochondria", incorrect_answers: ["Nucleus", "Ribosome", "Membrane"] }
+                ],
+                8: [
+                    { question: "What is the chemical symbol for water?", correct_answer: "H2O", incorrect_answers: ["O2", "CO2", "HO"] }
+                ],
+                9: [
+                    { question: "What force pulls objects toward the Earth?", correct_answer: "Gravity", incorrect_answers: ["Magnetism", "Friction", "Inertia"] }
+                ],
+                10: [
+                    { question: "What carries genetic information in living things?", correct_answer: "DNA", incorrect_answers: ["RNA", "Proteins", "Lipids"] }
+                ],
+                11: [
+                    { question: "What is the atomic number of Hydrogen?", correct_answer: "1", incorrect_answers: ["2", "10", "14"] }
+                ],
+                12: [
+                    { question: "What is the speed of light in a vacuum?", correct_answer: "300,000 km/s", incorrect_answers: ["150,000 km/s", "1,000 km/s", "3,000,000 km/s"] }
+                ]
+            },
+            reading: {
+                1: {
+                    passage: "The cat is orange. The cat sits on the mat. The mat is blue. The cat likes to sleep.",
+                    questions: [{ question: "What color is the cat?", correct_answer: "Orange", incorrect_answers: ["Blue", "Black", "White"] }]
+                },
+                2: {
+                    passage: "Tim has a red bicycle. He rides it to the park every day. His friend Sarah has a blue scooter. They like to race each other.",
+                    questions: [{ question: "What does Tim ride to the park?", correct_answer: "A red bicycle", incorrect_answers: ["A blue scooter", "A skateboard", "A car"] }]
+                },
+                3: {
+                    passage: "Bees are very important insects. They fly from flower to flower to collect nectar. They use the nectar to make sweet honey inside their hive.",
+                    questions: [{ question: "What do bees collect from flowers?", correct_answer: "Nectar", incorrect_answers: ["Honey", "Water", "Leaves"] }]
+                },
+                4: {
+                    passage: "The solar system has eight planets. The closest planet to the sun is Mercury, but the hottest planet is Venus. Earth is the third planet from the sun.",
+                    questions: [{ question: "Which planet is the hottest?", correct_answer: "Venus", incorrect_answers: ["Mercury", "Earth", "Mars"] }]
+                },
+                5: {
+                    passage: "Thomas Edison was a famous inventor. While he did not invent the first lightbulb, he created the first practical and long-lasting electric lightbulb in 1879.",
+                    questions: [{ question: "What did Thomas Edison create in 1879?", correct_answer: "A practical, long-lasting lightbulb", incorrect_answers: ["The very first lightbulb", "The telephone", "The battery"] }]
+                },
+                6: {
+                    passage: "Photosynthesis is the process plants use to make food. They take in sunlight, water, and carbon dioxide, and turn them into glucose and oxygen.",
+                    questions: [{ question: "What do plants release during photosynthesis?", correct_answer: "Oxygen", incorrect_answers: ["Carbon Dioxide", "Sunlight", "Water"] }]
+                },
+                7: {
+                    passage: "Ancient Egypt was located along the Nile River. The river flooded every year, providing rich soil for farming. The Egyptians built massive pyramids as tombs for their pharaohs.",
+                    questions: [{ question: "Why was the Nile River important to ancient Egyptians?", correct_answer: "It provided rich soil for farming", incorrect_answers: ["It was used to build pyramids", "It stopped invaders", "It provided drinking water only"] }]
+                },
+                8: {
+                    passage: "The Industrial Revolution marked a major turning point in history. It transitioned societies from manual labor and farming to machine-based manufacturing, starting in Great Britain in the 18th century.",
+                    questions: [{ question: "Where did the Industrial Revolution begin?", correct_answer: "Great Britain", incorrect_answers: ["United States", "France", "Germany"] }]
+                },
+                9: {
+                    passage: "In literature, the theme is the underlying message or central idea that the author wants to convey. It is different from the plot, which is simply the sequence of events that make up the story.",
+                    questions: [{ question: "How does a theme differ from a plot?", correct_answer: "The theme is the message; the plot is the events", incorrect_answers: ["The plot is the message; the theme is the characters", "They are exactly the same thing", "The theme is the setting of the story"] }]
+                },
+                10: {
+                    passage: "An ecosystem consists of all the living organisms in a given area interacting with their physical environment. These systems maintain balance through energy flows and nutrient cycles.",
+                    questions: [{ question: "What maintains the balance within an ecosystem?", correct_answer: "Energy flows and nutrient cycles", incorrect_answers: ["Only the living organisms", "Only the physical environment", "Human intervention"] }]
+                },
+                11: {
+                    passage: "The United States Constitution establishes the framework of the federal government. It divides power into three branches: the Legislative makes laws, the Executive enforces laws, and the Judicial interprets laws.",
+                    questions: [{ question: "Which branch of government is responsible for enforcing laws?", correct_answer: "Executive", incorrect_answers: ["Legislative", "Judicial", "Constitutional"] }]
+                },
+                12: {
+                    passage: "Quantum mechanics is a fundamental theory in physics that describes nature at the smallest scales of energy levels of atoms and subatomic particles. Unlike classical physics, it dictates that energy, momentum, and other quantities are restricted to discrete values.",
+                    questions: [{ question: "What is a key difference between classical physics and quantum mechanics?", correct_answer: "Quantum mechanics restricts energy to discrete values", incorrect_answers: ["Classical physics only applies to atoms", "Quantum mechanics deals with massive planets", "Classical physics is newer"] }]
                 }
-            ],
-            medium: [
-                {
-                    passage: "The water cycle describes how water moves around the Earth. The sun heats up water in oceans and lakes, turning it into vapor. This is called evaporation. As the vapor rises, it cools and forms clouds, which is called condensation. Finally, the water falls back to Earth as rain or snow, known as precipitation.",
-                    questions: [
-                        { question: "What causes water to evaporate?", correct_answer: "Heat from the sun", incorrect_answers: ["Wind", "Cold air", "Ocean currents"] },
-                        { question: "What is it called when water vapor cools to form clouds?", correct_answer: "Condensation", incorrect_answers: ["Precipitation", "Evaporation", "Collection"] },
-                        { question: "Which of the following is an example of precipitation?", correct_answer: "Rain", incorrect_answers: ["A cloud", "Water vapor", "Sunlight"] }
-                    ]
-                }
-            ],
-            hard: [
-                {
-                    passage: "Photosynthesis is the fundamental biological process by which plants, algae, and some bacteria convert light energy into chemical energy. During this process, carbon dioxide and water are transformed into glucose and oxygen, utilizing sunlight absorbed by chlorophyll.",
-                    questions: [
-                        { question: "What is the primary purpose of photosynthesis for the plant?", correct_answer: "To convert light energy into chemical energy", incorrect_answers: ["To release carbon dioxide", "To absorb oxygen from the air", "To create water"] },
-                        { question: "Which molecule absorbs the sunlight during photosynthesis?", correct_answer: "Chlorophyll", incorrect_answers: ["Glucose", "Oxygen", "Carbon dioxide"] },
-                        { question: "What are the two main byproducts produced by this process?", correct_answer: "Glucose and oxygen", incorrect_answers: ["Water and carbon dioxide", "Chlorophyll and light", "Heat and water vapor"] }
-                    ]
-                }
-            ]
+            }
         };
 
         let chosenSubject = '';
-        let chosenDifficulty = '';
         let activeDataset = [];
         let currentIndex = 0;
         let isFlipped = false;
@@ -427,107 +516,48 @@
         let recognition;
         let isListening = false;
 
-        // Force bind functions to global window object
+        // BIND FUNCTIONS TO WINDOW
         window.selectSubject = function(subject) {
             chosenSubject = subject;
             document.getElementById('subject-screen').classList.add('hidden');
             document.getElementById('level-screen').classList.remove('hidden');
         };
 
-        window.startApp = async function(grade) {
-            if (grade <= 5) {
-                chosenDifficulty = 'easy';
-            } else if (grade <= 8) {
-                chosenDifficulty = 'medium';
-            } else {
-                chosenDifficulty = 'hard';
-            }
-
+        window.startApp = function(grade) {
             document.getElementById('level-screen').classList.add('hidden');
-            document.getElementById('loading-screen').classList.remove('hidden');
-
+            
+            // Build the lesson dynamically from the internal database
             if (chosenSubject === 'reading') {
-                setupReadingLesson();
+                const lessonData = curriculumDatabase.reading[grade];
+                document.getElementById('passage-text').innerText = lessonData.passage;
+                document.getElementById('reading-passage').classList.remove('hidden');
+                
+                activeDataset = lessonData.questions.map(item => {
+                    const choices = [...item.incorrect_answers];
+                    choices.push(item.correct_answer);
+                    choices.sort(() => Math.random() - 0.5); // Shuffle
+                    return { question: item.question, answer: item.correct_answer, options: choices };
+                });
             } else {
-                await fetchLiveTrivia();
+                document.getElementById('reading-passage').classList.add('hidden');
+                const rawQuestions = curriculumDatabase[chosenSubject][grade];
+                
+                activeDataset = rawQuestions.map(item => {
+                    const choices = [...item.incorrect_answers];
+                    choices.push(item.correct_answer);
+                    choices.sort(() => Math.random() - 0.5); // Shuffle
+                    return { question: item.question, answer: item.correct_answer, options: choices };
+                });
             }
-        };
 
-        function setupReadingLesson() {
-            const passages = readingDatabase[chosenDifficulty];
-            const selectedLesson = passages[Math.floor(Math.random() * passages.length)];
-            
-            document.getElementById('passage-text').innerText = selectedLesson.passage;
-            document.getElementById('reading-passage').classList.remove('hidden');
-
-            activeDataset = selectedLesson.questions.map(item => {
-                const choices = [...item.incorrect_answers];
-                choices.push(item.correct_answer);
-                choices.sort(() => Math.random() - 0.5);
-
-                return {
-                    question: item.question,
-                    answer: item.correct_answer,
-                    options: choices
-                };
-            });
-
-            launchMainApp();
-        }
-
-        async function fetchLiveTrivia() {
-            document.getElementById('reading-passage').classList.add('hidden');
-
-            const categoryId = categories[chosenSubject];
-            const apiUrl = `https://opentdb.com/api.php?amount=5&category=${categoryId}&difficulty=${chosenDifficulty}&type=multiple`;
-
-            try {
-                const response = await fetch(apiUrl);
-                const data = await response.json();
-
-                if (data.response_code === 0 && data.results.length > 0) {
-                    activeDataset = data.results.map(item => {
-                        const cleanQuestion = decodeHTML(item.question);
-                        const cleanAnswer = decodeHTML(item.correct_answer);
-                        
-                        const choices = item.incorrect_answers.map(ans => decodeHTML(ans));
-                        choices.push(cleanAnswer);
-                        choices.sort(() => Math.random() - 0.5);
-
-                        return {
-                            question: cleanQuestion,
-                            answer: cleanAnswer,
-                            options: choices
-                        };
-                    });
-
-                    launchMainApp();
-                } else {
-                    throw new Error("No trivia records found.");
-                }
-            } catch (error) {
-                alert("⚠️ Trouble connecting to the online live question network. Let's try again!");
-                location.reload();
-            }
-        }
-
-        function launchMainApp() {
-            document.getElementById('loading-screen').classList.add('hidden');
             document.getElementById('main-app').classList.remove('hidden');
-            
             currentIndex = 0;
             isFlipped = false;
             setupSpeechRecognition(); 
             updateFlashcard();
             updateQuiz();
             updateProgressBar();
-        }
-
-        function decodeHTML(html) {
-            const txt = document.createElement("textarea");
-            txt.innerHTML = html;
-            return txt.value;
-        }
+        };
 
         window.switchMode = function(mode) {
             currentMode = mode;
@@ -599,7 +629,6 @@
                 recognition.interimResults = false;
 
                 recognition.onresult = function(event) {
-                    // Safe regex to remove punctuation so it matches purely based on words
                     const spokenText = event.results[0][0].transcript.toLowerCase().replace(/[^\w\s]/gi, '');
                     const currentCardText = document.getElementById('card-text').innerText.toLowerCase().replace(/[^\w\s]/gi, '');
                     
